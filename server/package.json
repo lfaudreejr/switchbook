@@ -4,7 +4,7 @@
   "description": "server",
   "main": "build/index.ts",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --require ts-node/register ./server-src/**/**/**/*.test.ts",
+    "test": "./node_modules/.bin/mocha --require ts-node/register ./src/**/**/**/*.test.ts",
     "start": "./build/index",
     "dev": "npm run build:live",
     "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/index.ts"
