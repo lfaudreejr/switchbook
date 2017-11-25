@@ -4,13 +4,22 @@
   "description": "book trading",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "dev:start": "NODE_ENV=development concurrently \"npm run dev:server\" \"npm run dev:client",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev"
   },
-  "keywords": [
-    "books",
-    "book",
-    "trading"
-  ],
+  "keywords": [ "books", "book", "trading" ],
   "author": "Larry B Faudree Jr",
-  "license": "ISC"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lfaudreejr/switchbook.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lfaudreejr/switchbook/issues"
+  },
+  "homepage": "https://github.com/lfaudreejr/switchbook#readme",
+  "devDependencies": {
+    "concurrently": "^3.5.1"
+  }
 }
