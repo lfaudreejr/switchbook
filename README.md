@@ -12,11 +12,9 @@ One to two paragraph statement about your product and what it does.
 ## Installation
 
 ```
-
 cd server && npm install
 cd client && npm install
 npm start
-
 
 ```
 
@@ -52,11 +50,11 @@ npm test
 
 ## Meta
 
-Your Name – [@YourTwitter](https://twitter.com/dbader_org) – YourEmail@example.com
+Larry Faudree Jr – [@lfaudreejr](https://twitter.com/lfaudreejr) – lfaudreejr@hotmail.com
 
-Distributed under the XYZ license. See ``LICENSE`` for more information.
+Distributed under the MIT license. See ``LICENSE`` for more information.
 
-[https://github.com/yourname/github-link](https://github.com/dbader/)
+[https://github.com/lfaudreejr/github-link](https://github.com/lfaudreejr/)
 
 ## Contributing
 
@@ -70,6 +68,6 @@ Distributed under the XYZ license. See ``LICENSE`` for more information.
 [npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/datadog-metrics
 [npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square
-[travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
-[wiki]: https://github.com/yourname/yourproject/wiki
+[travis-image]: https://img.shields.io/travis/lfaudreejr/switchbook/master.svg?style=flat-square
+[travis-url]: https://travis-ci.org/lfaudreejr/switchbook
+[wiki]: https://github.com/lfaudreejr/switchbook/wiki
