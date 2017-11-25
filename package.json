@@ -1,0 +1,16 @@
+{
+  "name": "switchbook",
+  "version": "1.0.0",
+  "description": "book trading",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "books",
+    "book",
+    "trading"
+  ],
+  "author": "Larry B Faudree Jr",
+  "license": "ISC"
+}

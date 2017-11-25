@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+- '0.11'
+- '0.10'
+deploy:
+  provider: heroku
+  api_key:
+    secure: YYd/vzzT4YIQkLXq/y2NEifa79Ecwrs8+H4GZ81f99+CIv53oleDwqO4ECDIfxwchnJ2P1Whppbd+eFJv+mrUvCn1MO9Ka8KkCsMexq3R/OByPqaBYa4uY4TtAYhQGPaaHWSwUa/FWJUeLhl2r0TnSoUBjMVzlH0sYoyq0eN64b/anm37PiyON1reuE05UlptCWoSJ87+00cvlEewoxSqC7iScRCPr9/QhgoIGtHdkVxHDbX2sA531TdvTjKG0OpOEp41oPgQoMd/GeqSZrChU/uiknlxjr6quV1doFlNAjl2+AaXi0Nd5EDAo+lfSG6651AQV9H6c0lcVXSTwpLP5HLssdR/SAy5OszPjs3IWDF2ad4Vb7jodOuUtfXHham3A2mIkOSqNOpiQz8hDnTbWd4cne29iW14cZR27TUxE1Ey4TYOQRZ8rAxl6INjV1akHVC9Ax/cyP8gJlfAqnMsa/iJaKVZqRMy9YtnlV+C3IfyGJV5u8BQCkiHRAFY6oYVGwUv/+kuSd0NTciAzT/71rlaGZLrMriGeqSJcH5v6ujTFzVbbtiNqU66ubsnQYAyLf2W4IZXpWFrXHtL7ykxUPMAVRZihuaQ8Qpdl9lsZQi2orkUTYbIcMFJKElNKf22rRDmfEJESYMt7+ueHtzKznl+q5ajPADXItuTDCBbFI=
+  app: switchbook
+  on:
+    repo: lfaudreejr/switchbook
