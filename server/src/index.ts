@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as compression from 'compression';
 import * as http from 'http';
 import * as path from 'path';
-import config from './config';
+import { config } from './config';
 
 const favicon = require('serve-favicon');
 /**
