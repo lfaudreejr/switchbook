@@ -4,15 +4,18 @@
   "description": "server",
   "main": "build/index.ts",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --require ts-node/register ./src/**/**/*.test.ts",
+    "test": "./node_modules/.bin/mocha --require ts-node/register ./src/**/**/*.test.ts --coverage",
     "start": "./build/index",
     "dev": "npm run build:live",
     "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/index.ts"
   },
-  "keywords": [ "server" ],
+  "keywords": [
+    "server"
+  ],
   "author": "Larry B Faudree Jr",
   "license": "ISC",
   "devDependencies": {
+    "@types/body-parser": "^1.16.8",
     "@types/chai": "^4.0.5",
     "@types/chai-as-promised": "^7.1.0",
     "@types/compression": "0.0.35",
@@ -36,6 +39,8 @@
     "typescript": "^2.6.1"
   },
   "dependencies": {
+    "axios": "^0.17.1",
+    "body-parser": "^1.18.2",
     "compression": "^1.7.1",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",

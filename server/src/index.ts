@@ -1,24 +1,40 @@
 import * as express from 'express';
 import * as compression from 'compression';
+import * as bodyParser from 'body-parser';
 import * as http from 'http';
 import * as path from 'path';
 import { config } from './config';
-
+/**
+ * Route Controllers
+ */
+import googleBooksRouter from './googleApis/googleBooks-routes';
+/**
+ * Serve Favicon
+ */
 const favicon = require('serve-favicon');
 /**
  * Express setup
  */
-const app = express();
-const server = new http.Server(app);
-
-const port = normalizePort(config.PORT || 3000);
-app.set('port', port);
+export const app = express();
+export const server = new http.Server(app);
 /*
 	Middleware
 */
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json
+app.use(bodyParser.json());
 app.use(compression());
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-
+/**
+ * Routing
+ */
+app.use('/search', googleBooksRouter;
+/**
+ * Server
+ */
+const port = normalizePort(config.PORT || 3000);
+app.set('port', port);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
@@ -73,4 +89,4 @@ function onListening () {
   console.log('Listening on ' + bind);
 }
 
-export default server;
+// export default server;

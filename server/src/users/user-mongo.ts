@@ -4,6 +4,7 @@ import { config } from '../config';
 
 const MongoClient = mongodb.MongoClient;
 const USERS = 'users';
+
 /**
  * Mongo State
  */
