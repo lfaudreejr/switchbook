@@ -4,11 +4,6 @@
   "description": "book trading",
   "author": "Larry Faudree <lfaudreejr@hotmail.com>",
   "private": true,
-  "proxy": {
-    "(auth|^/book)/[a-z]": {
-      "target": "http://localhost:3000"
-    }
-  },
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
@@ -19,6 +14,8 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "EventEmitter": "^1.0.0",
+    "auth0-js": "^8.11.3",
     "bootstrap": "^4.0.0-beta.2",
     "bootstrap-vue": "^1.2.0",
     "vue": "^2.4.2",

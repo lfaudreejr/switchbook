@@ -7,6 +7,7 @@ import { config } from './config';
 /**
  * Route Controllers
  */
+import { jwtCheck } from './auth/authService';
 import googleBooksRouter from './googleApis/googleBooks-routes';
 /**
  * Serve Favicon
@@ -20,6 +21,8 @@ export const server = new http.Server(app);
 /*
 	Middleware
 */
+const port = normalizePort(config.PORT || 3000);
+app.set('port', port);
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
@@ -29,12 +32,16 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 /**
  * Routing
  */
-app.use('/search', googleBooksRouter;
+app.use(jwtCheck);
+app.use('/search', googleBooksRouter);
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  const err = new Error('404');
+  next(err);
+});
 /**
  * Server
  */
-const port = normalizePort(config.PORT || 3000);
-app.set('port', port);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
