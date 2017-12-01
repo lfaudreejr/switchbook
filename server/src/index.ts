@@ -7,8 +7,9 @@ import { config } from './config';
 /**
  * Route Controllers
  */
-import { jwtCheck } from './auth/authService';
+// import { jwtCheck } from './auth/authService';
 import googleBooksRouter from './googleApis/googleBooks-routes';
+import mongoBooksRouter from './books/book-routes';
 /**
  * Serve Favicon
  */
@@ -32,9 +33,12 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 /**
  * Routing
  */
-app.use(jwtCheck);
+// app.use(jwtCheck);
 app.use('/search', googleBooksRouter);
-// catch 404 and forward to error handler
+app.use('/books', mongoBooksRouter);
+/**
+ * 404 routing
+ */
 app.use(function (req, res, next) {
   const err = new Error('404');
   next(err);
