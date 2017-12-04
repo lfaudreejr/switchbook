@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Callback from '@/components/callback/Callback'
 const Home = () => import('@/components/landing/Home')
 const User = () => import('@/components/user/User')
+const BooksLibrary = () => import('@/components/library/BooksLibrary')
+const BookDetail = () => import('@/components/library/BookDetail')
 
 Vue.use(Router)
 
@@ -21,6 +23,15 @@ export default new Router({
       path: '/callback',
       name: 'Callback',
       component: Callback
+    },
+    {
+      path: '/library',
+      component: BooksLibrary
+    },
+    {
+      path: '/books/:id',
+      component: BookDetail,
+      props: true
     },
     {
       path: '*',

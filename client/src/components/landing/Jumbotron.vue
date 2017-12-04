@@ -1,7 +1,7 @@
 <template>
-  <b-jumbotron class="hero" bg-variant="light" text-variant="black" fluid>
+  <b-jumbotron class="primary-bg mb-0" text-variant="dark" fluid>
     <h1 class="display-4">SwitchBook</h1>
-    <p>Books. Trading. Anytime.</p>
+    <p class="text-dark">Books. Trading. Anytime.</p>
     <img src="../../assets/book.png">
   </b-jumbotron>
 </template>
@@ -13,7 +13,5 @@ export default {
 </script>
 
 <style scoped>
-.hero {
-  margin: 0 auto;
-}
+
 </style>
