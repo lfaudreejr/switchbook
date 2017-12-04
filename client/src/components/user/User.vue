@@ -1,19 +1,11 @@
 <template>
   <div>
-    <b-jumbotron class="bg-light mb-0" fluid>
-      <h4>{{title}}</h4>
+    <b-jumbotron class="primary-bg text-white mb-0" fluid>
+      <h4 class="secondary-color">{{title}}</h4>
     </b-jumbotron>
 
-    <!-- <b-container class="header secondary-bg text-white" fluid>
-      <b-row>
-        <b-col>
-          <h4 class="mb-5">Current requested trades:</h4>
-          <p>{{trades}}</p>
-        </b-col>
-      </b-row>
-    </b-container> -->
     <div>
-      <b-alert v-if='trades[0] === 0' variant='danger' class="mb-0" show>
+      <b-alert v-if='trades[0] === 0' variant='secondary' class="mb-0" show>
         <div v-for="trade in trades" :key="trade">
           <p>Current Requested trades: {{trade}}</p>
         </div>
@@ -25,7 +17,7 @@
       </b-alert>
     </div>
 
-    <b-container class="bg-dark p-5 text-white" fluid>
+    <b-container class="bg-light p-5" fluid>
       <h4 class="mb-5">Currently owned books:</h4>
       <b-row>
           <b-col cols='md-2' v-for="book in books" :key="book._id">

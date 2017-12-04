@@ -1,5 +1,5 @@
 <template>
-  <b-navbar toggleable="md" type="dark" class="bg-dark">
+  <b-navbar toggleable="md" type='light' class="bg-light p-3">
 
   <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
@@ -24,7 +24,7 @@
           <b-form-group label='Book Author'>
             <b-form-input size='sm' type='text'></b-form-input>
           </b-form-group>
-          <b-button type="submit" variant="dark">Submit</b-button>
+          <b-button type="submit" class="primary-bg">Submit</b-button>
         </b-form>
       </b-nav-item-dropdown>
       <!-- TODO: make authenticated route-->

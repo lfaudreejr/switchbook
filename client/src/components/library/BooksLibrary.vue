@@ -1,9 +1,9 @@
 <template>
   <div>
-    <b-jumbotron class="bg-light mb-0">
-      <h4>{{title}}</h4>
+    <b-jumbotron class="primary-bg mb-0" fluid>
+      <h4 class="secondary-color">{{title}}</h4>
     </b-jumbotron>
-    <b-container class="bg-dark p-5" fluid>
+    <b-container class="bg-light p-5" fluid>
       <b-row>
           <b-col cols='md-2' v-for="book in books" :key="book._id">
             <b-card-group deck>

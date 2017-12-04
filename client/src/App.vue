@@ -2,9 +2,8 @@
   <div id="app">
     <navigation :auth='auth' :authenticated="authenticated"></navigation>
     <router-view :auth='auth' :authenticated="authenticated"></router-view>
-    <hr class="primary-bg m-0">
-    <footer class="p-5 bg-dark text-white">
-      <p>&copy Larry Faudree 2017</p>
+    <footer class="p-5 primary-bg-dark">
+      <p class="secondary-color">&copy Larry Faudree 2017</p>
     </footer>
   </div>
 </template>
@@ -46,24 +45,60 @@ export default {
 }
 .book-detail:hover {
   cursor: pointer;
-  background-color:#e5e5e5;
+  background-color:#9a67ea;
   border: 1px solid;
-  border-color: #00D2FF;
-}
-.color-bg {
-background: rgb(238,238,238); /* Old browsers */
-background: -moz-linear-gradient(top, rgba(238,238,238,1) 0%, rgba(204,204,204,1) 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(top, rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to bottom, rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+  border-color: #320b86;
+  color: #fff;
 }
 .primary-bg {
-  background-color: #00D2FF;
+  background-color: #673ab7;
+}
+.primary-bg-dark {
+  background-color: #320b86;
+}
+.primary-bg-light {
+  background-color: #9a67ea;
 }
 .secondary-bg {
-  background-color: #cccccc;
+  background-color: #69f0ae;
+}
+.secondary-bg-light {
+  background-color: #9fffe0;
+}
+.secondary-bg-dark {
+  background-color: #2bbd7e;
 }
 .primary-color {
-  color: #00D2FF !important;
+  color: #673ab7 !important;
+}
+.secondary-color {
+  color: #69f0ae !important;
+}
+button.primary-bg:hover {
+  background-color: #9a67ea;
+}
+a.dropdown-item:active {
+  background-color: #2bbd7e;
+  color: #2c3e50;
+}
+a.dropdown-item:hover {
+  background-color: #9a67ea;
+  color: #fff;
+}
+a.nav-link:hover {
+  color: #673ab7 !important;
+}
+.primary-border {
+  border: 1px solid#320b86;
+}
+.form-control:focus {
+  border-color: #673ab7 !important;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(255, 100, 255, 0.5);
+}
+.dropdown-menu {
+  border-color: #673ab7 !important;
+}
+.dropdown-menu a.dropdown-item {
+  border-color: #673ab7 !important;
 }
 </style>

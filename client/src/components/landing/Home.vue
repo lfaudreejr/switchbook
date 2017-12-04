@@ -3,9 +3,9 @@
 
     <jumbotron></jumbotron>
 
-    <b-container fluid class="primary-bg text-dark">
+    <b-container fluid class="bg-light">
       <h2 class="pt-5">Features:</h2>
-        <b-row class="p-5">
+        <b-row class="pb-5 pt-4">
             <b-col>Manage a catalog of your books.</b-col>
             <b-col class="feature">See all books that users currently have.</b-col>
             <b-col class="feature">Ask to borrow books from others.</b-col>
