@@ -12,17 +12,18 @@ const BOOKS = 'books';
  * Add Book by User
  */
 router.post('/books', async (req, res) => {
+  const USER = req.body.user;
   try {
     const BOOK = await getBook(req.body.title, req.body.author);
     const FOUND = await mongo.read(BOOK.data.items[0].id, BOOKS, {});
     if (FOUND) {
       const ISOWNED = FOUND.owners.find((owner: string) => {
-        return owner === req.body.user;
+        return owner === USER;
       });
       if (ISOWNED) {
-        return res.json(null);
+        return res.json(FOUND);
       } else {
-        const UPDATED = await mongo.update(FOUND._id, BOOKS, { $push: { owners: req.body.user } });
+        const UPDATED = await mongo.update(FOUND._id, BOOKS, { $push: { owners: USER } });
         console.log(UPDATED);
         return res.json(UPDATED.value);
       }
@@ -30,7 +31,7 @@ router.post('/books', async (req, res) => {
       const book = {
         _id: BOOK.data.items[0].id,
         volumeInfo: BOOK.data.items[0].volumeInfo,
-        owners: [ req.body.user ]
+        owners: [ USER ]
       };
       const CREATE = await mongo.create(book, BOOKS, {});
       return res.json(CREATE.ops[0]);
