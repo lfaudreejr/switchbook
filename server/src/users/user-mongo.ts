@@ -1,109 +1,78 @@
 import * as mongodb from 'mongodb';
+import { connectDB } from '../mongodb';
 import { User } from './User';
 import { config } from '../config';
 
-const MongoClient = mongodb.MongoClient;
-const USERS = 'users';
-
-/**
- * Mongo State
- */
-let mongoUri: any;
-let _db: mongodb.Db;
-/**
- * Handle mongo uri per environment
- */
-if (config.NODE_ENV === 'production') {
-  mongoUri = config.MONGO_PROD_URI;
-} else {
-  mongoUri = config.MONGO_DEV_URI;
-}
-/**
- * Mongo connection
- */
-function connectDB (): Promise<mongodb.Db> {
-  return new Promise((resolve, reject) => {
-    if (_db) return resolve(_db);
-
-    MongoClient.connect(mongoUri, (err: Error, db: mongodb.Db) => {
-      if (err) return reject(err);
-      _db = db;
-      return resolve(_db);
-    });
-  });
-}
+const USER = 'user';
 /**
  * Create
  */
 function create (user: User) {
-  return connectDB().then((db: mongodb.Db) => {
-    let collection: mongodb.Collection = db.collection(USERS);
-    return collection
-      .insertOne(user)
-      .then((doc) => {
-        return doc;
-      })
-      .catch((err: Error) => {
+  return connectDB()
+    .then((db: mongodb.Db) => {
+      let collection: mongodb.Collection = db.collection(USER);
+      return collection.insertOne(user).then((doc) => doc).catch((err) => {
         throw new Error(err.stack);
       });
-  });
+    })
+    .catch((err: Error) => {
+      throw new Error(err.stack);
+    });
 }
 /**
  * Read
  */
 function read (_id: string) {
-  return connectDB().then((db: mongodb.Db) => {
-    let collection: mongodb.Collection = db.collection(USERS);
-    return collection
-      .findOne({ _id: _id })
-      .then((doc: mongodb.CursorResult) => {
-        if (doc) {
-          return doc;
-        } else {
-          return null;
-        }
-      })
-      .catch((err: Error) => {
-        throw new Error(err.stack);
-      });
-  });
-}
-/**
- * Read All
- */
-function readAll () {
-  return connectDB().then((db: mongodb.Db) => {
-    let collection: mongodb.Collection = db.collection(USERS);
-    return new Promise((resolve, reject) => {
-      let users: User[] = [];
-      collection.find({}).forEach(
-        (user: mongodb.CursorResult) => {
-          users.push(user);
-        },
-        (err: Error) => {
-          if (err) return reject(err);
-          else {
-            return resolve(users);
+  return connectDB()
+    .then((db: mongodb.Db) => {
+      let collection: mongodb.Collection = db.collection(USER);
+      return collection
+        .findOne({ _id: _id })
+        .then((doc: mongodb.CursorResult) => {
+          if (doc) {
+            return new User(doc._id);
+          } else {
+            return null;
           }
-        }
-      );
+        })
+        .catch((err) => {
+          throw new Error(err.stack);
+        });
+    })
+    .catch((err: Error) => {
+      throw new Error(err.stack);
     });
-  });
 }
 /**
- * Delete User
+ * Update
+ */
+function update (_id: string, param: string, option: string) {
+  return connectDB()
+    .then((db: mongodb.Db) => {
+      let collection: mongodb.Collection = db.collection(USER);
+      return collection.findOneAndUpdate({ _id: _id }, { $set: { param: option } });
+    })
+    .catch((err: Error) => {
+      throw new Error(err.stack);
+    });
+}
+/**
+ * Delete
  */
 function destroy (_id: string) {
-  return connectDB().then((db: mongodb.Db) => {
-    let collection: mongodb.Collection = db.collection(USERS);
-    return collection.findOneAndDelete({ _id: _id });
-  });
+  return connectDB()
+    .then((db: mongodb.Db) => {
+      let collection: mongodb.Collection = db.collection(USER);
+      return collection.findOneAndDelete({ _id: _id });
+    })
+    .catch((err: Error) => {
+      throw new Error(err.stack);
+    });
 }
 
-export const usersDB = {
+export const userDB = {
   connectDB,
   create,
   read,
-  readAll,
   destroy
 };

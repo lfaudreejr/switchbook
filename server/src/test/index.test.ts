@@ -1,6 +1,6 @@
 /* eslint-env node, mocha */
-
-import server from '../';
+import * as chai from 'chai';
+import { server } from '../';
 
 describe('Server.listen()', () => {
   it('should wrap an http server', (done) => {

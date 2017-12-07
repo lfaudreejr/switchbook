@@ -1,14 +1,22 @@
-export class Book {
-  _id: string;
+export interface volume {
   title: string;
   authors: string[];
   description: string;
+  imageLinks: pictures;
+  owners: string[];
+}
+
+export interface pictures {
   thumbnail: string;
-  constructor (_id: string, title: string, authors: string[], description: string, thumbnail: string) {
+  smallThumbnail: string;
+}
+
+export class Book {
+  _id: string;
+  volumeInfo: volume;
+
+  constructor (_id: string, volumeInfo: volume) {
     this._id = _id;
-    this.title = title;
-    this.authors = authors;
-    this.description = description;
-    this.thumbnail = thumbnail;
+    this.volumeInfo = volumeInfo;
   }
 }

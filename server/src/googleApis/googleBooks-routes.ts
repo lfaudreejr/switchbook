@@ -3,7 +3,7 @@ import { getBook } from '../googleApis/googleBooks';
 import { jwtCheck } from '../auth/authService';
 const router = express.Router();
 
-router.post('/', jwtCheck, (req, res) => {
+router.post('/', (req, res) => {
   const { title, author } = req.body.book;
   let book = getBook(title, author);
   book

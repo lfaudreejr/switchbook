@@ -10,6 +10,7 @@ import { config } from './config';
 // import { jwtCheck } from './auth/authService';
 import googleBooksRouter from './googleApis/googleBooks-routes';
 import mongoBooksRouter from './books/book-routes';
+import userRouter from './users/user-routes';
 /**
  * Serve Favicon
  */
@@ -36,6 +37,7 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 // app.use(jwtCheck);
 app.use('/search', googleBooksRouter);
 app.use('/books', mongoBooksRouter);
+app.use('/user', userRouter);
 /**
  * 404 routing
  */

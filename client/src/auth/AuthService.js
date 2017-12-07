@@ -12,6 +12,7 @@ export default class AuthService {
     this.setSession = this.setSession.bind(this)
     this.logout = this.logout.bind(this)
     this.isAuthenticated = this.isAuthenticated.bind(this)
+    this.setProfile = this.setProfile.bind(this)
   }
 
   auth0 = new auth0.WebAuth({
@@ -31,12 +32,20 @@ export default class AuthService {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult)
+        this.setProfile(authResult)
         router.replace('home')
       } else if (err) {
         router.replace('home')
         console.log(err)
         alert(`Error: ${err.error}. Check the console for further details.`)
       }
+    })
+  }
+
+  setProfile (authResult) {
+    this.auth0.client.userInfo(authResult.accessToken, (err, user) => {
+      if (err) console.log(err)
+      localStorage.setItem('profile', JSON.stringify(user.nickname))
     })
   }
 
@@ -54,6 +63,7 @@ export default class AuthService {
     localStorage.removeItem('access_token')
     localStorage.removeItem('id_token')
     localStorage.removeItem('expires_at')
+    localStorage.removeItem('profile')
     this.userProfile = null
     this.authNotifier.emit('authChange', false)
     // navigate to the home route

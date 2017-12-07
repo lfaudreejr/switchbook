@@ -4,14 +4,12 @@
   "description": "server",
   "main": "build/index.ts",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --require ts-node/register ./src/**/**/*.test.ts --coverage",
+    "test": "./node_modules/.bin/mocha --require ts-node/register ./src/**/**/*.test.ts --coverage --exit",
     "start": "./build/index",
     "dev": "npm run build:live",
     "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/index.ts"
   },
-  "keywords": [
-    "server"
-  ],
+  "keywords": [ "server" ],
   "author": "Larry B Faudree Jr",
   "license": "ISC",
   "devDependencies": {
@@ -26,7 +24,9 @@
     "@types/mocha": "^2.2.44",
     "@types/mongodb": "^2.2.16",
     "@types/node": "^8.0.53",
+    "@types/request": "^2.0.8",
     "@types/serve-favicon": "^2.2.30",
+    "@types/supertest": "^2.0.4",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "eslint": "^4.11.0",
@@ -52,6 +52,8 @@
     "jwks-rsa": "^1.2.1",
     "mongodb": "^2.2.33",
     "passport-auth0": "^0.6.0",
-    "serve-favicon": "^2.4.5"
+    "request": "^2.83.0",
+    "serve-favicon": "^2.4.5",
+    "supertest": "^3.0.0"
   }
 }
