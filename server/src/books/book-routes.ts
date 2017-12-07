@@ -1,5 +1,5 @@
 import * as express from 'express';
-import * as mongo from '../mongodb';
+import * as DB from '../helpers/database';
 import { getBook } from '../googleApis/googleBooks';
 import { jwtCheck } from '../auth/authService';
 import { Book } from '../books/Book';
@@ -10,7 +10,7 @@ const router = express.Router();
  * Get all books for library
  */
 router.get('/', (req, res) => {
-  mongo.readAll('books').then((doc) => res.json(doc)).catch((err) => res.status(500).json(err));
+  DB.findAll('books').then((doc) => res.json(doc)).catch((err) => res.status(500).json(err));
 });
 /**
  * Create a book (Create)

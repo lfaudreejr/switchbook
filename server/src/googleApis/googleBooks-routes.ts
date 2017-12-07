@@ -8,8 +8,7 @@ router.post('/', (req, res) => {
   let book = getBook(title, author);
   book
     .then((results) => {
-      const { items } = results.data;
-      return res.send(items[0]);
+      return res.send(results);
     })
     .catch((err) => {
       throw new Error(err.stack);

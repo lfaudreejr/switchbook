@@ -1,5 +1,5 @@
 import * as express from 'express';
-import * as mongo from '../mongodb';
+import * as DB from '../helpers/database';
 import { jwtCheck } from '../auth/authService';
 import { getBook } from '../googleApis/googleBooks';
 import { User } from './User';
@@ -7,7 +7,7 @@ import { User } from './User';
 const router = express.Router();
 
 const BOOKS = 'books';
-
+const USERS = 'users';
 /**
  * Add Book by User
  */
@@ -15,7 +15,7 @@ router.post('/books', async (req, res) => {
   const USER = req.body.user;
   try {
     const BOOK = await getBook(req.body.title, req.body.author);
-    const FOUND = await mongo.read(BOOK.data.items[0].id, BOOKS, {});
+    const FOUND = await DB.find(BOOK.id, BOOKS, {});
     if (FOUND) {
       const ISOWNED = FOUND.owners.find((owner: string) => {
         return owner === USER;
@@ -23,27 +23,34 @@ router.post('/books', async (req, res) => {
       if (ISOWNED) {
         return res.json(FOUND);
       } else {
-        const UPDATED = await mongo.update(FOUND._id, BOOKS, { $push: { owners: USER } });
-        console.log(UPDATED);
+        const UPDATED = await DB.change(FOUND._id, BOOKS, { $push: { owners: USER } });
         return res.json(UPDATED.value);
       }
     } else {
       const book = {
-        _id: BOOK.data.items[0].id,
-        volumeInfo: BOOK.data.items[0].volumeInfo,
+        _id: BOOK.id,
+        volumeInfo: BOOK.volumeInfo,
         owners: [ USER ]
       };
-      const CREATE = await mongo.create(book, BOOKS, {});
-      return res.json(CREATE.ops[0]);
+      const CREATE = await DB.make(book, BOOKS, {});
+      return res.json(CREATE);
     }
-  } catch (error) {
-    throw new Error(error.stack);
+  } catch (err) {
+    throw new Error(err.stack);
   }
 });
 /**
  * Get Book by User (Read)
  */
-// router.get('/books/:id', (req, res) => {});
+router.get('/books/:id', async (req, res) => {
+  const ID = req.params.id;
+  try {
+    const FOUND = await DB.find(ID, BOOKS, {});
+    return res.json(FOUND);
+  } catch (err) {
+    throw new Error(err.stack);
+  }
+});
 /**
  * Add User to Book (Update)
  */
@@ -51,6 +58,14 @@ router.post('/books', async (req, res) => {
 /**
  * Delete User from Book (Delete)
  */
-// router.delete('/books/:id', (req, res) => {});
+router.delete('/books/:id', async (req, res) => {
+  const ID = req.params.id;
+  try {
+    const DESTROYED = await DB.remove(ID, BOOKS);
+    return res.json(DESTROYED);
+  } catch (err) {
+    throw new Error(err.stack);
+  }
+});
 
 export default router;

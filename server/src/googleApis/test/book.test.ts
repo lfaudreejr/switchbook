@@ -6,7 +6,7 @@ chai.use(chaiPromise);
 
 import { getBook } from '../googleBooks';
 
-describe('google Books Api', () => {
+describe.only('google Books Api', () => {
   describe('getBook()', () => {
     const book = getBook('Shogun', 'James Clavell');
     it('return status 200', (done) => {
