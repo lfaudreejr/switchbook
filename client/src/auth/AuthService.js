@@ -34,9 +34,9 @@ export default class AuthService {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult)
         this.setProfile(authResult)
-        router.replace('home')
+        router.replace('/home')
       } else if (err) {
-        router.replace('home')
+        router.replace('/home')
         console.log(err)
         alert(`Error: ${err.error}. Check the console for further details.`)
       }
@@ -53,7 +53,6 @@ export default class AuthService {
   setSession (authResult) {
     // Set the time that the access token will expire at
     let expiresAt = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime())
-    console.log(authResult)
     localStorage.setItem('access_token', authResult.accessToken)
     localStorage.setItem('id_token', authResult.idToken)
     localStorage.setItem('expires_at', expiresAt)

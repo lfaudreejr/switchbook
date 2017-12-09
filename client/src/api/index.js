@@ -4,6 +4,7 @@ import AuthService from '../auth/AuthService'
 const auth = new AuthService()
 
 export default class ApiService {
+
   submitBook (book) {
     return axios.post('/api/user/books',
       {
@@ -17,7 +18,19 @@ export default class ApiService {
       })
   }
 
+  getAllBooks () {
+    return axios.get('/api/books', {
+      headers: {
+        Authorization: `Bearer ${auth.getToken()}`
+      }
+    })
+  }
+
   getBookById (id) {
-    return axios.get('/api/books/' + id)
+    return axios.get('/api/books/' + id, {
+      headers: {
+        Authorization: `Bearer ${auth.getToken()}`
+      }
+    })
   }
 }

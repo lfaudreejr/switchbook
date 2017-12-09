@@ -58,12 +58,12 @@ export function create (item: object, col: string, config?: object) {
     });
 }
 
-export function read (id: string, col: string, config?: object) {
+export function read (params: object, col: string, config?: object) {
   return connectDB()
     .then((db) => {
       let collection = db.collection(col);
       return collection
-        .findOne({ _id: id }, config)
+        .findOne(params, config)
         .then((doc) => {
           if (doc) return doc;
           else return null;

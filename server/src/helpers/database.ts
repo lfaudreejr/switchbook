@@ -1,6 +1,6 @@
 import * as mongo from '../mongodb';
 
-export function find (params: string, col: string, config: object) {
+export function find (params: object, col: string, config: object) {
   return mongo
     .read(params, col, config)
     .then((doc) => {

@@ -15,7 +15,7 @@ router.post('/books', jwtCheck, getProfile, async (req, res) => {
   const USER = req.body.profile.nickname || req.body.profile.name;
   try {
     const BOOK = await getBook(req.body.title, req.body.author);
-    const FOUND = await DB.find(BOOK.id, BOOKS, {});
+    const FOUND = await DB.find({_id: BOOK.id}, BOOKS, {});
     if (FOUND) {
       const ISOWNED = FOUND.owners.find((owner: string) => {
         return owner === USER;
@@ -45,7 +45,7 @@ router.post('/books', jwtCheck, getProfile, async (req, res) => {
 router.get('/books/:id', async (req, res) => {
   const ID = req.params.id;
   try {
-    const FOUND = await DB.find(ID, BOOKS, {});
+    const FOUND = await DB.find({_id: ID}, BOOKS, {});
     return res.json(FOUND);
   } catch (err) {
     throw new Error(err.stack);

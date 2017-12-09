@@ -16,12 +16,18 @@ router.get('/', jwtCheck, (req, res) => {
  * Create a book (Create)
  */
 // router.post('/', (req, res) => {});
+
 /**
  * Get a book by _id (Read)
  */
-router.get('/:id', (req, res) => {
-  DB.find(req.params.id, 'books', {}).then((results) => res.json(results)).catch((err) => res.status(500).json(err))
+router.get('/:id', jwtCheck, (req, res) => {
+  DB.find({ _id: req.params.id}, 'books', {}).then((results) => res.json(results)).catch((err) => res.status(500).json(err))
 });
+/**
+ * Get a book by title
+ */
+// router.get('/:title, (req, res) => {})
+
 /**
  * Delete a book by _id (Delete)
  */
