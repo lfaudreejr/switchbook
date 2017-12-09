@@ -1,7 +1,7 @@
 import * as express from 'express';
 import * as DB from '../helpers/database';
 import { getBook } from '../googleApis/googleBooks';
-import { jwtCheck } from '../auth/authService';
+import { jwtCheck, getProfile } from '../auth/authService';
 import { Book } from '../books/Book';
 
 const router = express.Router();
@@ -9,7 +9,7 @@ const router = express.Router();
 /**
  * Get all books for library
  */
-router.get('/', (req, res) => {
+router.get('/', jwtCheck, (req, res) => {
   DB.findAll('books').then((doc) => res.json(doc)).catch((err) => res.status(500).json(err));
 });
 /**
@@ -19,7 +19,9 @@ router.get('/', (req, res) => {
 /**
  * Get a book by _id (Read)
  */
-// router.get('/:id', (req, res) => {});
+router.get('/:id', (req, res) => {
+  DB.find(req.params.id, 'books', {}).then((results) => res.json(results)).catch((err) => res.status(500).json(err))
+});
 /**
  * Delete a book by _id (Delete)
  */

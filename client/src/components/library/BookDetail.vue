@@ -1,10 +1,10 @@
 <template>
   <div>
-    <b-card>
+    <b-card v-if="book">
       <div class="mb-5 mt-5">
-        <img :src='book.image'>
-        <h3>{{book.title}}</h3>
-        <p v-for="author in book.authors" :key="author"  class="small">{{author}}</p>
+        <img :src='book.volumeInfo.imageLinks.thumbnail'>
+        <h3>{{book.volumeInfo.title}}</h3>
+        <p v-for="author in book.volumeInfo.authors" :key="author"  class="small">{{author}}</p>
       </div>
       <div>
         <b-list-group>
@@ -18,29 +18,30 @@
     </b-card>
   </div>
 </template>
-
 <script>
-const BOOK = {
-  _id: 'cWAF8_uH1_sC',
-  title: 'Shogun',
-  authors: [ 'James Clavell' ],
-  description: 'A bold English adventurer. An invincible Japanese warlord. A beautiful woman torn between two ways of life, two ways of love. All brought together in an extraordinary saga of a time and a place aflame with conflict, passion, ambition, lust, and the struggle for power... From the Paperback edition.',
-  image: 'http://books.google.com/books/content?id=cWAF8_uH1_sC&printsec=frontcover&img=1&zoom=5&edge=curl&imgtk=AFLRE72aj9MgUz4ivFEKtwt_D4BOPxvN084Q0rCjC_l7vOmHcfgGody4HQz2y8F7Cj94fiJ49ONYhZfVfzshKbaB_gTfB3wm4iQznKjj-2D1J7hTULG6nbsj84uq5T2mMP7Y6k9rTNbC&source=gbs_api',
-  owners: [
-    'Larry', 'Katie', 'Steve'
-  ]
-}
+import ApiService from '../../api'
+const api = new ApiService()
 
 export default {
   name: 'bookdetail',
   data () {
     return {
       title: 'Books detail',
-      book: BOOK
+      book: null
     }
   },
   methods: {
-    requestTrade () {}
+    requestTrade () {},
+    async fetchBook () {
+      const data = await api.getBookById(this.$route.params.id)
+      this.book = data.data
+    }
+  },
+  created: function () {
+    this.fetchBook()
+  },
+  watch: {
+    '$route': 'fetchBook'
   }
 }
 </script>
@@ -51,7 +52,7 @@ export default {
 }
 .owner-list:hover {
   cursor: pointer;
-  background-color: #00D2FF;
+  background-color: #9a67ea;
   color: white;
 }
 </style>

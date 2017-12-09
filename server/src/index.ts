@@ -25,6 +25,13 @@ export const server = new http.Server(app);
 */
 const port = normalizePort(config.PORT || 3000);
 app.set('port', port);
+if (process.env.NODE_ENV !== 'production') {
+  app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    next();
+  });
+}
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json

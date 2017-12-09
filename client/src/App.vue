@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <navigation :auth='auth' :authenticated="authenticated"></navigation>
-    <router-view :auth='auth' :authenticated="authenticated"></router-view>
+    <navigation :auth='auth' :authenticated="authenticated" ></navigation>
+    <router-view :auth='auth' :authenticated="authenticated" ></router-view>
     <footer class="p-5 primary-bg-dark">
       <p class="secondary-color">&copy Larry Faudree 2017</p>
     </footer>

@@ -14,15 +14,20 @@
     <!-- Right aligned nav items -->
     <b-navbar-nav class="ml-auto">
 
+      <b-nav-form @submit="onSubmit" @reset="onReset">
+        <b-form-input v-model="search.title" size="sm" class="mr-sm-2" type="text" placeholder="Find a Book"/>
+        <b-button size="sm" class="my-2 my-sm-0" type="submit">Go!</b-button>
+      </b-nav-form>
+
       <b-nav-item href='/library'>Library</b-nav-item>
 
       <b-nav-item-dropdown text='Add Book'>
         <b-form class="px-3 py-1" @submit="submitBook">
           <b-form-group label='Book Title'>
-            <b-form-input size='sm' type='text'></b-form-input>
+            <b-form-input v-model="addBook.title" size='sm' type='text'></b-form-input>
           </b-form-group>
           <b-form-group label='Book Author'>
-            <b-form-input size='sm' type='text'></b-form-input>
+            <b-form-input v-model="addBook.author" size='sm' type='text'></b-form-input>
           </b-form-group>
           <b-button type="submit" class="primary-bg">Submit</b-button>
         </b-form>
@@ -51,12 +56,59 @@
 </template>
 
 <script>
+import ApiService from '../../api'
+const api = new ApiService()
 
 export default {
   name: 'navigation',
-  props: ['auth', 'authenticated'],
+  props: ['auth', 'authenticated', 'book'],
+  data () {
+    return {
+      search: {
+        title: ''
+      },
+      addBook: {
+        title: '',
+        author: ''
+      }
+    }
+  },
   methods: {
-    submitBook () {}
+    async submitBook (evt) {
+      evt.preventDefault()
+      const addedBook = await api.submitBook(this.addBook)
+      const el = document.querySelector('div.dropdown-menu')
+      el.classList.toggle('show')
+      this.$router.push('/books/' + addedBook._id)
+    },
+    onSubmit (evt) {
+      evt.preventDefault()
+      alert(JSON.stringify(this.search))
+      // TODO: add http call to endpoint
+      const token = localStorage.getItem('access_token')
+
+      this.$http.get('/books', {
+        headers: {
+          Authorization: 'Bearer ' + token
+        }
+      }).then((data) => {
+        console.log(data)
+      }).catch((err) => {
+        console.error(err)
+      })
+    },
+    onReset (evt) {
+      evt.preventDefault()
+      // Reset our form values
+      this.form.title = ''
+      this.form.email = ''
+      this.form.name = ''
+      this.form.food = null
+      this.form.checked = false
+      // Trick to reset/clear native browser form validation state
+      this.show = false
+      this.$nextTick(() => { this.show = true })
+    }
   }
 }
 </script>

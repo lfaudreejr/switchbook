@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as DB from '../helpers/database';
-import { jwtCheck } from '../auth/authService';
+import { jwtCheck, getProfile } from '../auth/authService';
 import { getBook } from '../googleApis/googleBooks';
 import { User } from './User';
 
@@ -11,8 +11,8 @@ const USERS = 'users';
 /**
  * Add Book by User
  */
-router.post('/books', async (req, res) => {
-  const USER = req.body.user;
+router.post('/books', jwtCheck, getProfile, async (req, res) => {
+  const USER = req.body.profile.nickname || req.body.profile.name;
   try {
     const BOOK = await getBook(req.body.title, req.body.author);
     const FOUND = await DB.find(BOOK.id, BOOKS, {});

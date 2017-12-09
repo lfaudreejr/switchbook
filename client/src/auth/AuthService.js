@@ -13,6 +13,7 @@ export default class AuthService {
     this.logout = this.logout.bind(this)
     this.isAuthenticated = this.isAuthenticated.bind(this)
     this.setProfile = this.setProfile.bind(this)
+    this.getToken = this.getToken.bind(this)
   }
 
   auth0 = new auth0.WebAuth({
@@ -45,17 +46,22 @@ export default class AuthService {
   setProfile (authResult) {
     this.auth0.client.userInfo(authResult.accessToken, (err, user) => {
       if (err) console.log(err)
-      localStorage.setItem('profile', JSON.stringify(user.nickname))
+      localStorage.setItem('profile', user.nickname)
     })
   }
 
   setSession (authResult) {
     // Set the time that the access token will expire at
     let expiresAt = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime())
+    console.log(authResult)
     localStorage.setItem('access_token', authResult.accessToken)
     localStorage.setItem('id_token', authResult.idToken)
     localStorage.setItem('expires_at', expiresAt)
     this.authNotifier.emit('authChange', { authenticated: true })
+  }
+
+  getToken () {
+    return localStorage.getItem('access_token')
   }
 
   logout () {

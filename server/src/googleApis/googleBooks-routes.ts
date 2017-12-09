@@ -1,9 +1,9 @@
 import * as express from 'express';
 import { getBook } from '../googleApis/googleBooks';
-import { jwtCheck } from '../auth/authService';
+import { jwtCheck, getProfile } from '../auth/authService';
 const router = express.Router();
 
-router.post('/', (req, res) => {
+router.post('/', jwtCheck, getProfile, (req, res) => {
   const { title, author } = req.body.book;
   let book = getBook(title, author);
   book
