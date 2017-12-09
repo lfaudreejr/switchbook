@@ -31,9 +31,9 @@ export function make (params: object, col: string, config: object) {
     });
 }
 
-export function findAll (params: string) {
+export function findAll (params: object, col: string) {
   return mongo
-    .readAll(params)
+    .readAll(params, col)
     .then((docs) => {
       return docs;
     })

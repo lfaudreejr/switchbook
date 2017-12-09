@@ -77,12 +77,12 @@ export function read (params: object, col: string, config?: object) {
     });
 }
 
-export function readAll (col: string) {
+export function readAll (params: object, col: string) {
   return connectDB()
     .then((db) => {
       let collection = db.collection(col);
       return new Promise((resolve, reject) => {
-        collection.find({}).toArray((err, docs) => {
+        collection.find(params).toArray((err, docs) => {
           if (err) return reject(err);
           else return resolve(docs);
         });

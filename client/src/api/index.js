@@ -33,4 +33,12 @@ export default class ApiService {
       }
     })
   }
+
+  getBooksByUser () {
+    return axios.get('/api/user/books', {
+      headers: {
+        Authorization: `Bearer ${auth.getToken()}`
+      }
+    })
+  }
 }

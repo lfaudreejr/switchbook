@@ -42,10 +42,10 @@ router.post('/books', jwtCheck, getProfile, async (req, res) => {
 /**
  * Get Book by User (Read)
  */
-router.get('/books/:id', async (req, res) => {
-  const ID = req.params.id;
+router.get('/books', jwtCheck, getProfile, async (req, res) => {
+  const USER = req.body.profile.nickname || req.body.profile.name;
   try {
-    const FOUND = await DB.find({_id: ID}, BOOKS, {});
+    const FOUND = await DB.findAll({owners: USER}, BOOKS);
     return res.json(FOUND);
   } catch (err) {
     throw new Error(err.stack);

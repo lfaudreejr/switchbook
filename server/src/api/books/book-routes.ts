@@ -10,7 +10,7 @@ const router = express.Router();
  * Get all books for library
  */
 router.get('/', jwtCheck, (req, res) => {
-  DB.findAll('books').then((doc) => res.json(doc)).catch((err) => res.status(500).json(err));
+  DB.findAll({},'books').then((doc) => res.json(doc)).catch((err) => res.status(500).json(err));
 });
 /**
  * Create a book (Create)

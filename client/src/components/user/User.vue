@@ -24,9 +24,9 @@
             <b-card-group deck>
               <b-card class="mb-3">
                 <div>
-                  <img :src="book.image">
-                  <p>{{book.title}}</p>
-                  <p v-for="author in book.authors" :key="author"  class="small">{{author}}</p>
+                  <img :src="book.volumeInfo.imageLinks.thumbnail">
+                  <p>{{book.volumeInfo.title}}</p>
+                  <p v-for="author in book.volumeInfo.authors" :key="author"  class="small">{{author}}</p>
                 </div>
               </b-card>
             </b-card-group>
@@ -37,29 +37,27 @@
 </template>
 
 <script>
-const BOOK = {
-  _id: 'cWAF8_uH1_sC',
-  title: 'Shogun',
-  authors: [ 'James Clavell' ],
-  description: 'A bold English adventurer. An invincible Japanese warlord. A beautiful woman torn between two ways of life, two ways of love. All brought together in an extraordinary saga of a time and a place aflame with conflict, passion, ambition, lust, and the struggle for power... From the Paperback edition.',
-  image: 'http://books.google.com/books/content?id=cWAF8_uH1_sC&printsec=frontcover&img=1&zoom=5&edge=curl&imgtk=AFLRE72aj9MgUz4ivFEKtwt_D4BOPxvN084Q0rCjC_l7vOmHcfgGody4HQz2y8F7Cj94fiJ49ONYhZfVfzshKbaB_gTfB3wm4iQznKjj-2D1J7hTULG6nbsj84uq5T2mMP7Y6k9rTNbC&source=gbs_api'
-}
+import ApiService from '../../api'
+const api = new ApiService()
 
 export default {
   name: 'user',
   data () {
     return {
       title: 'Profile',
-      books: [
-        BOOK,
-        BOOK,
-        BOOK,
-        BOOK,
-        BOOK
-      ],
+      books: null,
       trades: [0],
       formText: null
     }
+  },
+  methods: {
+    async fetchUserBooks () {
+      const data = await api.getBooksByUser()
+      this.books = data.data
+    }
+  },
+  created: function () {
+    this.fetchUserBooks()
   }
 
 }
