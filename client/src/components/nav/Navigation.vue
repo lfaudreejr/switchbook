@@ -76,26 +76,15 @@ export default {
   methods: {
     async submitBook (evt) {
       evt.preventDefault()
-      const addedBook = await api.submitBook(this.addBook)
+      const {data} = await api.submitBook(this.addBook)
       const el = document.querySelector('div.dropdown-menu')
       el.classList.toggle('show')
-      this.$router.push('/books/' + addedBook._id)
+      this.$router.push('/books/' + data._id)
     },
     onSubmit (evt) {
       evt.preventDefault()
       alert(JSON.stringify(this.search))
-      // TODO: add http call to endpoint
-      const token = localStorage.getItem('access_token')
-
-      this.$http.get('/books', {
-        headers: {
-          Authorization: 'Bearer ' + token
-        }
-      }).then((data) => {
-        console.log(data)
-      }).catch((err) => {
-        console.error(err)
-      })
+      // TODO: add http call to endpoint find by title
     },
     onReset (evt) {
       evt.preventDefault()

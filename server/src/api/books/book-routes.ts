@@ -1,7 +1,7 @@
 import * as express from 'express';
-import * as DB from '../helpers/database';
+import * as DB from '../../helpers/database';
 import { getBook } from '../googleApis/googleBooks';
-import { jwtCheck, getProfile } from '../auth/authService';
+import { jwtCheck, getProfile } from '../../auth/authService';
 import { Book } from '../books/Book';
 
 const router = express.Router();

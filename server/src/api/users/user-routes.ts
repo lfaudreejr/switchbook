@@ -1,6 +1,6 @@
 import * as express from 'express';
-import * as DB from '../helpers/database';
-import { jwtCheck, getProfile } from '../auth/authService';
+import * as DB from '../../helpers/database';
+import { jwtCheck, getProfile } from '../../auth/authService';
 import { getBook } from '../googleApis/googleBooks';
 import { User } from './User';
 

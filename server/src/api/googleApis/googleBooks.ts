@@ -1,4 +1,4 @@
-import { get } from '../helpers';
+import { get } from '../../helpers';
 
 export const getBook = function (title: string, author: string) {
   return get(

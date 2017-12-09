@@ -8,9 +8,10 @@ import { config } from './config';
  * Route Controllers
  */
 // import { jwtCheck } from './auth/authService';
-import googleBooksRouter from './googleApis/googleBooks-routes';
-import mongoBooksRouter from './books/book-routes';
-import userRouter from './users/user-routes';
+// import googleBooksRouter from './googleApis/googleBooks-routes';
+// import mongoBooksRouter from './books/book-routes';
+// import userRouter from './users/user-routes';
+import apiRoutes from './api/routes'
 /**
  * Serve Favicon
  */
@@ -42,9 +43,10 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
  * Routing
  */
 // app.use(jwtCheck);
-app.use('/search', googleBooksRouter);
-app.use('/books', mongoBooksRouter);
-app.use('/user', userRouter);
+// app.use('/api/search', googleBooksRouter);
+// app.use('/api/books', mongoBooksRouter);
+// app.use('/api/user', userRouter);
+app.use('/api', apiRoutes)
 /**
  * 404 routing
  */

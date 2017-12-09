@@ -1,6 +1,6 @@
 import auth0 from 'auth0-js'
 import EventEmitter from 'EventEmitter'
-import router from './../router'
+import router from '../router'
 import { config } from '../config'
 
 export default class AuthService {
@@ -73,7 +73,7 @@ export default class AuthService {
     this.userProfile = null
     this.authNotifier.emit('authChange', false)
     // navigate to the home route
-    router.replace('home')
+    router.replace('/home')
   }
 
   isAuthenticated () {

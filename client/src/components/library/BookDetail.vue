@@ -52,7 +52,6 @@ export default {
 }
 .owner-list:hover {
   cursor: pointer;
-  background-color: #9a67ea;
-  color: white;
+  background-color: #f8f9fa;
 }
 </style>

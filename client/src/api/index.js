@@ -5,7 +5,7 @@ const auth = new AuthService()
 
 export default class ApiService {
   submitBook (book) {
-    return axios.post('/user/books',
+    return axios.post('/api/user/books',
       {
         title: book.title,
         author: book.author
@@ -15,15 +15,9 @@ export default class ApiService {
           Authorization: `Bearer ${auth.getToken()}`
         }
       })
-      .then((result) => {
-        const { data } = result
-        return data
-      }).catch((err) => {
-        console.error(err)
-      })
   }
 
   getBookById (id) {
-    return axios.get('/books/' + id)
+    return axios.get('/api/books/' + id)
   }
 }

@@ -45,10 +45,10 @@ export default {
 }
 .book-detail:hover {
   cursor: pointer;
-  background-color:#9a67ea;
+  background-color:#f8f9fa;
   border: 1px solid;
   border-color: #320b86;
-  color: #fff;
+  /* color: #fff; */
 }
 .primary-bg {
   background-color: #673ab7;
@@ -82,8 +82,8 @@ a.dropdown-item:active {
   color: #2c3e50;
 }
 a.dropdown-item:hover {
-  background-color: #9a67ea;
-  color: #fff;
+  background-color: #f8f9fa;
+  /* color: #fff; */
 }
 a.nav-link:hover {
   color: #673ab7 !important;

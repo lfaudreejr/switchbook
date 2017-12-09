@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { getBook } from '../googleApis/googleBooks';
-import { jwtCheck, getProfile } from '../auth/authService';
+import { jwtCheck, getProfile } from '../../auth/authService';
 const router = express.Router();
 
 router.post('/', jwtCheck, getProfile, (req, res) => {
