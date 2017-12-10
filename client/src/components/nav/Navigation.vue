@@ -19,9 +19,9 @@
         <b-button size="sm" class="my-2 my-sm-0" type="submit">Go!</b-button>
       </b-nav-form>
 
-      <b-nav-item href='/library'>Library</b-nav-item>
+      <b-nav-item href='/library' v-if="authenticated">Library</b-nav-item>
 
-      <b-nav-item-dropdown text='Add Book'>
+      <b-nav-item-dropdown text='Add Book' v-if="authenticated">
         <b-form class="px-3 py-1" @submit="submitBook">
           <b-form-group label='Book Title'>
             <b-form-input v-model="addBook.title" size='sm' type='text'></b-form-input>
@@ -41,7 +41,7 @@
         <b-dropdown-item href="#">FA</b-dropdown-item>
       </b-nav-item-dropdown>
 
-      <b-nav-item-dropdown right >
+      <b-nav-item-dropdown right v-if="authenticated">
         <!-- Using button-content slot -->
         <template slot="button-content">
           <em>User</em>

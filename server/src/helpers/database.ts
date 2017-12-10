@@ -1,7 +1,7 @@
-import * as mongo from '../mongodb';
+import * as DB from '../mongodb';
 
 export function find (params: object, col: string, config: object) {
-  return mongo
+  return DB
     .read(params, col, config)
     .then((doc) => {
       return doc;
@@ -11,7 +11,7 @@ export function find (params: object, col: string, config: object) {
     });
 }
 export function change (params: string, col: string, config: object) {
-  return mongo
+  return DB
     .update(params, col, config)
     .then((doc) => {
       return doc;
@@ -21,7 +21,7 @@ export function change (params: string, col: string, config: object) {
     });
 }
 export function make (params: object, col: string, config: object) {
-  return mongo
+  return DB
     .create(params, col, config)
     .then((doc) => {
       return doc.ops[0];
@@ -32,7 +32,7 @@ export function make (params: object, col: string, config: object) {
 }
 
 export function findAll (params: object, col: string) {
-  return mongo
+  return DB
     .readAll(params, col)
     .then((docs) => {
       return docs;
@@ -43,7 +43,7 @@ export function findAll (params: object, col: string) {
 }
 
 export function remove (params: string, col: string) {
-  return mongo
+  return DB
     .destroy(params, col)
     .then((doc) => {
       return doc.value;

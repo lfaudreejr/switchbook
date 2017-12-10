@@ -19,7 +19,7 @@
 
     <b-container class="bg-light p-5" fluid>
       <h4 class="mb-5">Currently owned books:</h4>
-      <b-row>
+      <b-row v-if="books">
           <b-col cols='md-2' v-for="book in books" :key="book._id">
             <b-card-group deck>
               <b-card class="mb-3">
@@ -52,8 +52,14 @@ export default {
   },
   methods: {
     async fetchUserBooks () {
-      const data = await api.getBooksByUser()
-      this.books = data.data
+      let userBooks = localStorage.getItem('user_books')
+      if (userBooks) {
+        this.books = JSON.parse(userBooks)
+      } else {
+        const data = await api.getBooksByUser()
+        localStorage.setItem('user_books', JSON.stringify(data.data))
+        this.books = data.data
+      }
     }
   },
   created: function () {
