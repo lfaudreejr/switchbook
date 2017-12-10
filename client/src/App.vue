@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <navigation :auth='auth' :authenticated="authenticated" ></navigation>
-    <router-view :auth='auth' :authenticated="authenticated" ></router-view>
+    <navigation :auth='auth' :profile='profile' :authenticated="authenticated" ></navigation>
+    <router-view :auth='auth' :profile='profile' :authenticated="authenticated" ></router-view>
     <footer class="p-5 primary-bg-dark">
       <p class="secondary-color">&copy Larry Faudree 2017</p>
     </footer>
@@ -13,7 +13,7 @@ import navigation from '@/components/nav/Navigation'
 import AuthService from './auth/AuthService'
 
 const auth = new AuthService()
-const {login, logout, authenticated, authNotifier} = auth
+const {login, logout, authenticated, authNotifier, profile} = auth
 
 export default {
   name: 'app',
@@ -22,10 +22,14 @@ export default {
     authNotifier.on('authChange', authState => {
       this.authenticated = authState.authenticated
     })
+    authNotifier.on('profileChange', profileState => {
+      this.profile = profileState.profile
+    })
     return {
       name: 'SwitchBook',
       auth,
-      authenticated
+      authenticated,
+      profile
     }
   },
   methods: {

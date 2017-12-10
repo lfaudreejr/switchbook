@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Callback from '@/components/callback/Callback'
 const Home = () => import('@/components/landing/Home')
 const User = () => import('@/components/user/User')
+const TradeRequests = () => import('@/components/user/TradeRequests')
 const BooksLibrary = () => import('@/components/library/BooksLibrary')
 const BookDetail = () => import('@/components/library/BookDetail')
 
@@ -19,6 +20,10 @@ export default new Router({
     {
       path: '/user',
       component: User
+    },
+    {
+      path: '/user/requests',
+      component: TradeRequests
     },
     {
       path: '/callback',

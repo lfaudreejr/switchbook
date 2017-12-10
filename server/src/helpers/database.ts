@@ -52,3 +52,12 @@ export function remove (params: string, col: string) {
       throw new Error(err.stack);
     });
 }
+
+export function getCount (param: object, col: string) {
+  return DB.count(param, col)
+    .then((count) => {
+      return count
+    }).catch((err) => {
+      throw new Error(err.stack)
+    })
+}

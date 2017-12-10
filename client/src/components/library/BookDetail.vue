@@ -10,19 +10,19 @@
         <b-list-group>
           <h5>Owners of this book:</h5>
           <p class="small">Click an owner to request a trade.</p>
-          <b-list-group-item v-for="owner in book.owners" :key="owner" v-b-modal.modalPrevent="'myModal'" class="owner-list">
+          <b-list-group-item v-for="owner in book.owners" :key="owner" v-b-modal.modalPrevent="owner !== profile ? 'myModal' : ''" class="owner-list">
             {{owner}}
 
             <!-- the modal -->
-            <b-modal id="myModal" @ok="requestTrade(book._id, owner)">
+            <b-modal id="myModal" @ok="requestTrade(book, owner)">
             <b-form>
               <p>Select a book to trade.</p>
               <b-row>
-                <b-col v-for="userbook in usersBooks" :key="userbook._id">
+                <b-col v-for="userbook in userBooks" :key="userbook._id">
                   <b-card class="mb-3">
                     <b-form-checkbox-group v-model="selectedToTrade">
                       <b-img thumnail  :src="userbook.volumeInfo.imageLinks.thumbnail"></b-img>
-                      <b-form-checkbox id="checkvalue" :value='userbook._id'>Select</b-form-checkbox>
+                      <b-form-checkbox id="checkvalue" :value='userbook'>Select</b-form-checkbox>
                     </b-form-checkbox-group>
                   </b-card>
                 </b-col>
@@ -44,6 +44,7 @@ const api = new ApiService()
 
 export default {
   name: 'bookdetail',
+  props: ['profile'],
   components: {
     BookTradeModal
   },
@@ -51,28 +52,57 @@ export default {
     return {
       title: 'Books detail',
       book: null,
+      usersBooks: null,
       selectedToTrade: null
     }
   },
   computed: {
-    usersBooks () {
-      const userBooks = localStorage.getItem('user_books')
-      return JSON.parse(userBooks)
+    userBooks () {
+      return this.usersBooks
     }
   },
   methods: {
-    requestTrade (book, owner) {
-      console.log('book', book)
-      console.log('owner', owner)
-      console.log('selected', this.selectedToTrade)
+    async requestTrade (book, owner) {
+      const request = {
+        requestedBook: book,
+        currentOwner: owner,
+        bookOffered: this.selectedToTrade
+      }
+      const data = await api.submitATrade(request)
+      this.selectedToTrade = null
+      console.log(data)
+      this.$router.push('/user')
+      // TODO: maybe add to vuex state for trades
     },
     async fetchBook () {
       const data = await api.getBookById(this.$route.params.id)
       this.book = data.data
+    },
+    async fetchUserBooks () {
+      let userBooks = this.getSession('user_books')
+      if (userBooks) {
+        this.usersBooks = userBooks
+      } else {
+        const data = await api.getBooksByUser()
+        this.setSession('user_books', data.data)
+        this.usersBooks = data.data
+      }
+    },
+    setSession (name, param) {
+      sessionStorage.setItem(name, JSON.stringify(param))
+    },
+    getSession (name) {
+      let session = JSON.parse(sessionStorage.getItem(name))
+      if (session && session.length > 0) {
+        console.log(session)
+        return session
+      }
+      return null
     }
   },
-  created: function () {
-    this.fetchBook()
+  created: async function () {
+    await this.fetchBook()
+    await this.fetchUserBooks()
   },
   watch: {
     '$route': 'fetchBook'

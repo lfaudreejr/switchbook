@@ -42,5 +42,43 @@ export default class ApiService {
     })
   }
 
-  submitATrade () {}
+  submitATrade (request) {
+    return axios.post('/api/trades/request', request, {
+      headers: {
+        Authorization: `Bearer ${auth.getToken()}`
+      }
+    })
+  }
+
+  getPendingTrades () {
+    return axios.get('/api/trades/pending', {
+      headers: {
+        Authorization: `Bearer ${auth.getToken()}`
+      }
+    })
+  }
+
+  getRequestedTrades () {
+    return axios.get('/api/trades/', {
+      headers: {
+        Authorization: `Bearer ${auth.getToken()}`
+      }
+    })
+  }
+
+  getNumberPendingTrades () {
+    return axios.get('/api/trades/pending/number', {
+      headers: {
+        Authorization: `Bearer ${auth.getToken()}`
+      }
+    })
+  }
+
+  getNumberRequestedTrades () {
+    return axios.get('/api/trades/pending/requested', {
+      headers: {
+        Authorization: `Bearer ${auth.getToken()}`
+      }
+    })
+  }
 }

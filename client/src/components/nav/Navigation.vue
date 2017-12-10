@@ -8,7 +8,8 @@
     <b-navbar-nav>
       <b-navbar-brand class="primary-color" href='/home'>SwitchBook</b-navbar-brand>
       <b-nav-item @click="auth.login()" v-if="!authenticated">Login/Register</b-nav-item>
-      <b-nav-item @click="auth.logout()" v-if="authenticated">Logout</b-nav-item>
+      <!-- <b-nav-item @click="auth.logout()" v-if="authenticated">Logout</b-nav-item> -->
+      <b-nav-item v-if="profile">Hello, {{profile}}</b-nav-item>
     </b-navbar-nav>
 
     <!-- Right aligned nav items -->
@@ -61,7 +62,7 @@ const api = new ApiService()
 
 export default {
   name: 'navigation',
-  props: ['auth', 'authenticated', 'book'],
+  props: ['auth', 'authenticated', 'profile', 'book'],
   data () {
     return {
       search: {

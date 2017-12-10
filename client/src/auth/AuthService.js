@@ -6,6 +6,7 @@ import { config } from '../config'
 export default class AuthService {
   authenticated = this.isAuthenticated();
   authNotifier = new EventEmitter();
+  profile = this.getProfile();
 
   constructor () {
     this.login = this.login.bind(this)
@@ -13,6 +14,7 @@ export default class AuthService {
     this.logout = this.logout.bind(this)
     this.isAuthenticated = this.isAuthenticated.bind(this)
     this.setProfile = this.setProfile.bind(this)
+    this.getProfile = this.getProfile.bind(this)
     this.getToken = this.getToken.bind(this)
   }
 
@@ -46,8 +48,18 @@ export default class AuthService {
   setProfile (authResult) {
     this.auth0.client.userInfo(authResult.accessToken, (err, user) => {
       if (err) console.log(err)
-      localStorage.setItem('profile', user.nickname)
+      localStorage.setItem('profile', JSON.stringify(user.nickname))
+      this.authNotifier.emit('profileChange', { profile: user.nickname })
     })
+  }
+
+  getProfile () {
+    return JSON.parse(localStorage.getItem('profile'))
+  }
+
+  removeProfile () {
+    localStorage.removeItem('profile')
+    this.authNotifier.emit('profileChange', false)
   }
 
   setSession (authResult) {
@@ -68,9 +80,10 @@ export default class AuthService {
     localStorage.removeItem('access_token')
     localStorage.removeItem('id_token')
     localStorage.removeItem('expires_at')
-    localStorage.removeItem('profile')
-    this.userProfile = null
+    sessionStorage.removeItem('user_books')
+    this.profile = null
     this.authNotifier.emit('authChange', false)
+    this.removeProfile()
     // navigate to the home route
     router.replace('/home')
   }
