@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as DB from '../../helpers/database';
-import { jwtCheck, getProfile } from '../../auth/authService';
+import { jwtCheck } from '../../auth/authService';
 import { getBook } from '../googleApis/googleBooks';
 import { User } from './User';
 
@@ -8,11 +8,19 @@ const router = express.Router();
 
 const BOOKS = 'books';
 const USERS = 'users';
+
+/**
+ * 
+ */
+router.use(jwtCheck)
+// router.use(getProfile)
+
 /**
  * Add Book by User
  */
-router.post('/books', jwtCheck, getProfile, async (req, res) => {
-  const USER = req.body.profile.nickname || req.body.profile.name;
+router.post('/books', async (req, res) => {
+  // const USER = req.body.profile.nickname || req.body.profile.name;
+  const USER = req.headers.profile
   try {
     const BOOK = await getBook(req.body.title, req.body.author);
     const FOUND = await DB.find({_id: BOOK.id}, BOOKS, {});
@@ -42,8 +50,10 @@ router.post('/books', jwtCheck, getProfile, async (req, res) => {
 /**
  * Get Book by User (Read)
  */
-router.get('/books', jwtCheck, getProfile, async (req, res) => {
-  const USER = req.body.profile.nickname || req.body.profile.name;
+router.get('/books', async (req, res) => {
+  // const USER = req.body.profile.nickname || req.body.profile.name;
+  const USER = req.headers.profile
+  console.log(USER)
   try {
     const FOUND = await DB.findAll({owners: USER}, BOOKS);
     return res.json(FOUND);
@@ -55,6 +65,7 @@ router.get('/books', jwtCheck, getProfile, async (req, res) => {
  * Add User to Book (Update)
  */
 // router.put('/books/:id', (req, res) => {});
+
 /**
  * Delete User from Book (Delete)
  */

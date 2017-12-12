@@ -40,8 +40,8 @@ export default {
       this.books = data.data
     }
   },
-  created: function () {
-    this.fetchBooks()
+  created: async function () {
+    await this.fetchBooks()
   }
 }
 </script>

@@ -66,11 +66,11 @@ export default {
       const request = {
         requestedBook: book,
         currentOwner: owner,
-        bookOffered: this.selectedToTrade
+        bookOffered: this.selectedToTrade[0]
       }
       const data = await api.submitATrade(request)
       this.selectedToTrade = null
-      console.log(data)
+      console.log('bookdetail', data)
       this.$router.push('/user')
       // TODO: maybe add to vuex state for trades
     },
@@ -79,25 +79,8 @@ export default {
       this.book = data.data
     },
     async fetchUserBooks () {
-      let userBooks = this.getSession('user_books')
-      if (userBooks) {
-        this.usersBooks = userBooks
-      } else {
-        const data = await api.getBooksByUser()
-        this.setSession('user_books', data.data)
-        this.usersBooks = data.data
-      }
-    },
-    setSession (name, param) {
-      sessionStorage.setItem(name, JSON.stringify(param))
-    },
-    getSession (name) {
-      let session = JSON.parse(sessionStorage.getItem(name))
-      if (session && session.length > 0) {
-        console.log(session)
-        return session
-      }
-      return null
+      const data = await api.getBooksByUser()
+      this.usersBooks = data.data
     }
   },
   created: async function () {
@@ -105,7 +88,7 @@ export default {
     await this.fetchUserBooks()
   },
   watch: {
-    '$route': 'fetchBook'
+    '$route': ['fetchBook', 'fetchUserBooks']
   }
 }
 </script>

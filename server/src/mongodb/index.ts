@@ -108,7 +108,7 @@ export function destroy (id: string, col: string) {
   return connectDB()
     .then((db) => {
       let collection = db.collection(col);
-      return collection.findOneAndDelete({ _id: id });
+      return collection.findOneAndDelete({ _id: new mongodb.ObjectID(id) });
     })
     .catch((err) => {
       throw new Error(err.stack);

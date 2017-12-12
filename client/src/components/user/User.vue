@@ -83,24 +83,10 @@ export default {
     }
   },
   methods: {
-    async submitTrades () {
-      if (this.selectedToTrade) {
-        this.selectToTrade.forEach((item) => {
-
-        })
-      }
-    },
-    async deleteTrades () {},
     async fetchUserBooks () {
       try {
-        let userBooks = this.getSession('user_books')
-        if (userBooks) {
-          this.books = userBooks
-        } else {
-          let data = await api.getBooksByUser()
-          this.setSession('user_books', data.data)
-          this.books = data.data
-        }
+        let data = await api.getBooksByUser()
+        this.books = data.data
       } catch (err) {
         console.error(err)
       }
@@ -122,22 +108,15 @@ export default {
       } catch (err) {
         console.error(err)
       }
-    },
-    setSession (name, param) {
-      sessionStorage.setItem(name, JSON.stringify(param))
-    },
-    getSession (name, param) {
-      let session = JSON.parse(sessionStorage.getItem(name, param))
-      if (session) {
-        return session
-      }
-      return null
     }
   },
-  created: function () {
-    this.fetchUserBooks()
-    this.fetchNumberPendingTrades()
-    this.fetchNumberRequestedTrades()
+  created: async function () {
+    await this.fetchUserBooks()
+    await this.fetchNumberPendingTrades()
+    await this.fetchNumberRequestedTrades()
+  },
+  watch: {
+    '$route': ['fetchUserBooks', 'fetchNumberPendingTrades', 'fetchNumberRequestedTrades']
   }
 
 }

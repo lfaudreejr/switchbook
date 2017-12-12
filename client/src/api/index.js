@@ -3,6 +3,8 @@ import AuthService from '../auth/AuthService'
 
 const auth = new AuthService()
 
+// const PROFILE = JSON.parse(localStorage.getItem('profile'))
+
 export default class ApiService {
 
   submitBook (book) {
@@ -13,7 +15,8 @@ export default class ApiService {
       },
       {
         headers: {
-          Authorization: `Bearer ${auth.getToken()}`
+          Authorization: `Bearer ${auth.getToken()}`,
+          Profile: auth.getProfile()
         }
       })
   }
@@ -21,7 +24,8 @@ export default class ApiService {
   getAllBooks () {
     return axios.get('/api/books', {
       headers: {
-        Authorization: `Bearer ${auth.getToken()}`
+        Authorization: `Bearer ${auth.getToken()}`,
+        Profile: auth.getProfile()
       }
     })
   }
@@ -29,7 +33,8 @@ export default class ApiService {
   getBookById (id) {
     return axios.get('/api/books/' + id, {
       headers: {
-        Authorization: `Bearer ${auth.getToken()}`
+        Authorization: `Bearer ${auth.getToken()}`,
+        Profile: auth.getProfile()
       }
     })
   }
@@ -37,7 +42,8 @@ export default class ApiService {
   getBooksByUser () {
     return axios.get('/api/user/books', {
       headers: {
-        Authorization: `Bearer ${auth.getToken()}`
+        Authorization: `Bearer ${auth.getToken()}`,
+        Profile: auth.getProfile()
       }
     })
   }
@@ -45,7 +51,8 @@ export default class ApiService {
   submitATrade (request) {
     return axios.post('/api/trades/request', request, {
       headers: {
-        Authorization: `Bearer ${auth.getToken()}`
+        Authorization: `Bearer ${auth.getToken()}`,
+        Profile: auth.getProfile()
       }
     })
   }
@@ -53,7 +60,8 @@ export default class ApiService {
   getPendingTrades () {
     return axios.get('/api/trades/pending', {
       headers: {
-        Authorization: `Bearer ${auth.getToken()}`
+        Authorization: `Bearer ${auth.getToken()}`,
+        Profile: auth.getProfile()
       }
     })
   }
@@ -61,15 +69,17 @@ export default class ApiService {
   getRequestedTrades () {
     return axios.get('/api/trades/', {
       headers: {
-        Authorization: `Bearer ${auth.getToken()}`
+        Authorization: `Bearer ${auth.getToken()}`,
+        Profile: auth.getProfile()
       }
     })
   }
 
   getNumberPendingTrades () {
-    return axios.get('/api/trades/pending/number', {
+    return axios.get('/api/trades/pending/incoming', {
       headers: {
-        Authorization: `Bearer ${auth.getToken()}`
+        Authorization: `Bearer ${auth.getToken()}`,
+        Profile: auth.getProfile()
       }
     })
   }
@@ -77,8 +87,28 @@ export default class ApiService {
   getNumberRequestedTrades () {
     return axios.get('/api/trades/pending/requested', {
       headers: {
-        Authorization: `Bearer ${auth.getToken()}`
+        Authorization: `Bearer ${auth.getToken()}`,
+        Profile: auth.getProfile()
       }
     })
   }
+
+  declineATrade (id) {
+    return axios.delete(`/api/trades/delete/${id}`, {
+      headers: {
+        Authorization: `Bearer ${auth.getToken()}`,
+        Profile: auth.getProfile()
+      }
+    })
+  }
+
+  acceptATrade (request) {
+    return axios.post('/api/trades/accept', request, {
+      headers: {
+        Authorization: `Bearer ${auth.getToken()}`,
+        Profile: auth.getProfile()
+      }
+    })
+  }
+
 }

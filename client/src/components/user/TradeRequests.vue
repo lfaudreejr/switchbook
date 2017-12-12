@@ -4,8 +4,8 @@
       <h4 class="secondary-color">{{title}}</h4>
     </b-jumbotron>
 
-    <div v-if="offers">
-      <h3>Offers</h3>
+    <div v-if="offers && offers.length > 0">
+      <b-jumbotron fluid class="secondary-bg-light">Offers</b-jumbotron>
 
       <b-row>
         <b-col v-for="offer in offers" :key="offer._id">
@@ -13,15 +13,15 @@
           <b-card-group>
             <b-card title="Requested Book">
               <b-img thumbnail fluid  :src='offer.requestedBook.volumeInfo.imageLinks. thumbnail'></b-img>
-              <p class="card-text">Requested by {{offer.requestor}}</p>
+              <p class="card-text">Owned by {{offer.currentOwner}}</p>
             </b-card>
 
-            <b-button class="m-2" variant='success'>Accept</b-button>
-            <b-button class="m-2" variant='danger'>Decline</b-button>
+            <b-button class="m-2" variant='success' @click="acceptTrade(offer)">Accept</b-button>
+            <b-button class="m-2" variant='danger' @click="declineTrade(offer)">Decline</b-button>
 
             <b-card title="Offered Book">
-              <b-img thumbnail fluid :src='offer.bookOffered[0] .volumeInfo.imageLinks.thumbnail'></b-img>
-              <p class="card-text">Offered by {{offer.currentOwner}}</p>
+              <b-img thumbnail fluid :src='offer.bookOffered.volumeInfo.imageLinks.thumbnail'></b-img>
+              <p class="card-text">Offered by {{offer.requestor}}</p>
             </b-card>
           </b-card-group>
 
@@ -31,8 +31,8 @@
 
     <hr>
 
-    <div v-if="requests">
-      <h3>Requests</h3>
+    <div v-if="requests && requests.length > 0">
+      <b-jumbotron fluid class="secondary-bg-light">Requests</b-jumbotron>
 
       <b-row>
         <b-col v-for="request in requests" :key="request._id">
@@ -40,15 +40,15 @@
           <b-card-group>
             <b-card title="Requested Book">
               <b-img thumbnail fluid :src='request.requestedBook.volumeInfo.imageLinks.thumbnail'></b-img>
-              <p class="card-text">Requested by {{request.requestor}}</p>
+              <p class="card-text">Owned by {{request.currentOwner}}</p>
             </b-card>
 
-            <b-button class="m-2" variant='success' @click="acceptTrade(request)">Accept</b-button>
-            <b-button class="m-2" variant='danger' @click="declineTrade(request)">Decline</b-button>
+            <!-- <b-button class="m-2" variant='success' @click="acceptTrade(request)">Accept</b-button> -->
+            <b-button class="m-2" variant='danger' @click="declineTrade(request)">Delete</b-button>
 
             <b-card title="Offered Book">
-              <b-img thumbnail fluid :src='request.bookOffered[0] .volumeInfo.imageLinks.thumbnail'></b-img>
-              <p class="card-text">Offered by {{request.currentOwner}}</p>
+              <b-img thumbnail fluid :src='request.bookOffered .volumeInfo.imageLinks.thumbnail'></b-img>
+              <p class="card-text">Owned by {{request.requestor}}</p>
             </b-card>
           </b-card-group>
 
@@ -92,14 +92,20 @@ export default {
     },
     async declineTrade (req) {
       console.log(req)
+      const declined = await api.declineATrade(req._id)
+      console.log('deleted', declined)
+      this.$router.push('/user')
     },
     async acceptTrade (req) {
       console.log(req)
+      const removed = await api.acceptATrade(req)
+      console.log(removed)
+      this.$router.push('/user')
     }
   },
-  created: function () {
-    this.fetchRequests()
-    this.fetchOffers()
+  created: async function () {
+    await this.fetchRequests()
+    await this.fetchOffers()
   }
 }
 </script>
