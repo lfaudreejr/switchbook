@@ -16,4 +16,4 @@ selenium-debug.log
 *.sln
 
 # config file
-*/config.js
+config.js
