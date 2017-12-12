@@ -9,3 +9,9 @@ deploy:
   app: switchbook
   on:
     repo: lfaudreejr/switchbook
+env:
+  global:
+    secure: kC81kA+6pyh8b+rdcZwGAC0S0tH6hX3cH8EQVXlcRGGGALnyQG7WnxQf0GwnizE+JIvXC4fZ4VuM0I/QF23tfKVqb7gikoUq4zxcIwWqLAU5ynaKt1BE5jU/RrY2pyIsrteFT1Ia1ORE+480XYkZxS80baLUMDySA2qJhrzddIxjGeR3a3BxUcJmTl2Vmjk+hT19lbG/cVgrzGfXZ8x6dZAWIn9bf6m8/stAfx1XtPZ07GZ5qdwqS2mGQtKKQFFuxFxvOVSLrCAbsHX4+j2aJrJ17/FEY69wuXMz8AdrQl77TAGQrXHtYX4Q2K+bP+g48M1c1mtRLy6iiQNYET34OVUe++I8UOzW/1VijTIPe2qcQ+jOENIkausVkrl0nc+Sb24AMzQBeZzhLgmj1bMxbe1itfV8u3JgnNORpDOaMwNCs+wOHS5C/2rpF06l5lU9UdFTpKdtDZpUyfA7PC2a4EsutTd/v/RVRAzqKp37/yZDlMWKDS15DInr04vdlKhnji0ZqR4wu5vdR8ZuvaCwFRCJw3DQMAmsZApYQFSs+fSPgsWhFxCKV9B/lTNBiLYrDQ1J8G2YsqTXCUggKM8hMbGA7qArkaA2b+TyVLf1ni1nMGVR51ZyHg7SYcZJv4Bhniyo71XWW6RmfvkQMxz33dDDZAoTOcb/+Q0ZJaEn0OE=
+before_install:
+- openssl aes-256-cbc -K $encrypted_003c3b9af4a1_key -iv $encrypted_003c3b9af4a1_iv
+  -in index.js.enc -out ./client/src/config/index.js -d
