@@ -16,17 +16,3 @@ export const jwtCheck = jwt({
   issuer: config.AUTH0_DOMAIN,
   algorithms: [ 'RS256' ]
 });
-
-// export const getProfile = function (req: Request, res: Response, next: NextFunction) {
-//   const profilePromise = get('https://lfaudreejr.auth0.com/userinfo', {
-//     headers: { Authorization: req.headers.authorization }
-//   });
-//   profilePromise
-//     .then((data) => {
-//       req.body.profile = data.data;
-//       next();
-//     })
-//     .catch((err) => {
-//       next(err);
-//     });
-// };

@@ -75,7 +75,6 @@ export default {
     async fetchRequests () {
       try {
         const data = await api.getRequestedTrades()
-        console.log('requested', data)
         this.requests = data.data
       } catch (err) {
         console.error(err)
@@ -84,22 +83,17 @@ export default {
     async fetchOffers () {
       try {
         const data = await api.getPendingTrades()
-        console.log('pending', data)
         this.offers = data.data
       } catch (err) {
         console.error(err)
       }
     },
     async declineTrade (req) {
-      console.log(req)
-      const declined = await api.declineATrade(req._id)
-      console.log('deleted', declined)
+      await api.declineATrade(req._id)
       this.$router.push('/user')
     },
     async acceptTrade (req) {
-      console.log(req)
-      const removed = await api.acceptATrade(req)
-      console.log(removed)
+      await api.acceptATrade(req)
       this.$router.push('/user')
     }
   },

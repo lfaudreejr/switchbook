@@ -94,7 +94,6 @@ export default {
     async fetchNumberPendingTrades () {
       try {
         const count = await api.getNumberPendingTrades()
-        console.log(count)
         this.pendingTrades = count.data
       } catch (err) {
         console.error(err)
@@ -103,7 +102,6 @@ export default {
     async fetchNumberRequestedTrades () {
       try {
         const count = await api.getNumberRequestedTrades()
-        console.log(count)
         this.requestedTrades = count.data
       } catch (err) {
         console.error(err)

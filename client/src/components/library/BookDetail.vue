@@ -68,11 +68,9 @@ export default {
         currentOwner: owner,
         bookOffered: this.selectedToTrade[0]
       }
-      const data = await api.submitATrade(request)
+      await api.submitATrade(request)
       this.selectedToTrade = null
-      console.log('bookdetail', data)
       this.$router.push('/user')
-      // TODO: maybe add to vuex state for trades
     },
     async fetchBook () {
       const data = await api.getBookById(this.$route.params.id)
