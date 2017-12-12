@@ -79,7 +79,10 @@ export default {
   color: #69f0ae !important;
 }
 button.primary-bg:hover {
-  background-color: #9a67ea;
+  background-color: #320b86;
+}
+button.secondary-bg:hover {
+  background-color: #2bbd7e;
 }
 a.dropdown-item:active {
   background-color: #2bbd7e;

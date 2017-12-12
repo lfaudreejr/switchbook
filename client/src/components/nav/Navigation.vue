@@ -9,7 +9,7 @@
       <b-navbar-brand class="primary-color" href='/home'>SwitchBook</b-navbar-brand>
       <b-nav-item @click="auth.login()" v-if="!authenticated">Login/Register</b-nav-item>
       <!-- <b-nav-item @click="auth.logout()" v-if="authenticated">Logout</b-nav-item> -->
-      <b-nav-item v-if="profile">Hello, {{profile}}</b-nav-item>
+      <b-nav-item v-if="authenticated && profile">Hello, {{profile}}</b-nav-item>
     </b-navbar-nav>
 
     <!-- Right aligned nav items -->
