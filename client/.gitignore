@@ -15,5 +15,5 @@ selenium-debug.log
 *.njsproj
 *.sln
 
-# config files
-src/config
+# config file
+src/config/index.js
