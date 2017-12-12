@@ -1,7 +1,7 @@
-import axios from 'axios'
-import AuthService from '../auth/AuthService'
+import axios from 'axios';
+import AuthService from '../auth/AuthService';
 
-const auth = new AuthService()
+const auth = new AuthService();
 
 // const PROFILE = JSON.parse(localStorage.getItem('profile'))
 
@@ -18,7 +18,7 @@ export default class ApiService {
           Authorization: `Bearer ${auth.getToken()}`,
           Profile: auth.getProfile()
         }
-      })
+      });
   }
 
   getAllBooks () {
@@ -27,7 +27,7 @@ export default class ApiService {
         Authorization: `Bearer ${auth.getToken()}`,
         Profile: auth.getProfile()
       }
-    })
+    });
   }
 
   getBookById (id) {
@@ -36,7 +36,7 @@ export default class ApiService {
         Authorization: `Bearer ${auth.getToken()}`,
         Profile: auth.getProfile()
       }
-    })
+    });
   }
 
   getBooksByUser () {
@@ -45,7 +45,7 @@ export default class ApiService {
         Authorization: `Bearer ${auth.getToken()}`,
         Profile: auth.getProfile()
       }
-    })
+    });
   }
 
   submitATrade (request) {
@@ -54,7 +54,7 @@ export default class ApiService {
         Authorization: `Bearer ${auth.getToken()}`,
         Profile: auth.getProfile()
       }
-    })
+    });
   }
 
   getPendingTrades () {
@@ -63,7 +63,7 @@ export default class ApiService {
         Authorization: `Bearer ${auth.getToken()}`,
         Profile: auth.getProfile()
       }
-    })
+    });
   }
 
   getRequestedTrades () {
@@ -72,7 +72,7 @@ export default class ApiService {
         Authorization: `Bearer ${auth.getToken()}`,
         Profile: auth.getProfile()
       }
-    })
+    });
   }
 
   getNumberPendingTrades () {
@@ -81,7 +81,7 @@ export default class ApiService {
         Authorization: `Bearer ${auth.getToken()}`,
         Profile: auth.getProfile()
       }
-    })
+    });
   }
 
   getNumberRequestedTrades () {
@@ -90,7 +90,7 @@ export default class ApiService {
         Authorization: `Bearer ${auth.getToken()}`,
         Profile: auth.getProfile()
       }
-    })
+    });
   }
 
   declineATrade (id) {
@@ -99,7 +99,7 @@ export default class ApiService {
         Authorization: `Bearer ${auth.getToken()}`,
         Profile: auth.getProfile()
       }
-    })
+    });
   }
 
   acceptATrade (request) {
@@ -108,7 +108,7 @@ export default class ApiService {
         Authorization: `Bearer ${auth.getToken()}`,
         Profile: auth.getProfile()
       }
-    })
+    });
   }
 
 }

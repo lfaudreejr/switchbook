@@ -7,11 +7,7 @@ import { config } from './config';
 /**
  * Route Controllers
  */
-// import { jwtCheck } from './auth/authService';
-// import googleBooksRouter from './googleApis/googleBooks-routes';
-// import mongoBooksRouter from './books/book-routes';
-// import userRouter from './users/user-routes';
-import apiRoutes from './api/routes'
+import apiRoutes from './api/routes';
 /**
  * Serve Favicon
  */
@@ -40,13 +36,21 @@ app.use(bodyParser.json());
 app.use(compression());
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 /**
+ * Serve production assets
+ */
+if (process.env.NODE_ENV === 'production') {
+  app.use('/', express.static(path.join(__dirname, '../../client/dist/')));
+}
+/**
  * Routing
  */
-// app.use(jwtCheck);
-// app.use('/api/search', googleBooksRouter);
-// app.use('/api/books', mongoBooksRouter);
-// app.use('/api/user', userRouter);
 app.use('/api', apiRoutes)
+
+if (process.env.NODE_ENV === 'production') {
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
+  });
+}
 /**
  * 404 routing
  */

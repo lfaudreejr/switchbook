@@ -12,16 +12,6 @@
         <div>
           <p>Current Requested trades: {{requestedTrades}}</p>
           <b-btn class="primary-bg" @click="$router.push('/user/requests')">Manage Requested Trades</b-btn>
-          <!-- <b-row>
-            <b-col v-for="trade in requestedTrades" :key="trade._id">
-              <b-form-checkbox-group v-model="selectToTrade">
-                <b-img :src="trade.requestedBook.volumeInfo.imageLinks.thumbnail"></b-img>
-                <b-form-checkbox id="acceptTrade" :value='trade'>Select</b-form-checkbox>
-              </b-form-checkbox-group>
-            </b-col>
-          <b-btn @click="submitTrades" class="primary-bg">Accept</b-btn>
-          <b-btn @click="deleteTrades" class="bg-danger">Delete</b-btn>
-        </b-row> -->
         </div>
       </b-alert>
     </div>
@@ -33,16 +23,6 @@
       <b-alert v-if='pendingTrades' variant='success' class="mb-0" show>
         <p>Current Pending trades: {{pendingTrades}}</p>
         <b-btn class="primary-bg" @click="$router.push('/user/requests')">Manage Pending Trades</b-btn>
-        <!-- <b-row>
-          <b-col v-for="trade in pendingTrades" :key="trade._id">
-            <b-form-checkbox-group v-model="selectToRemoveTrade">
-              <b-img :src="trade.bookOffered[0].volumeInfo.imageLinks.thumbnail"></b-img>
-              <b-form-checkbox id="selectTrade" :value='trade'>Select</b-form-checkbox>
-            </b-form-checkbox-group>
-          </b-col>
-          <b-btn @click="submitTrades" class="primary-bg">Accept</b-btn>
-          <b-btn @click="deleteTrades" class="bg-danger">Delete</b-btn>
-        </b-row> -->
       </b-alert>
     </div>
 
@@ -66,8 +46,8 @@
 </template>
 
 <script>
-import ApiService from '../../api'
-const api = new ApiService()
+import ApiService from '../../api';
+const api = new ApiService();
 
 export default {
   name: 'user',
@@ -80,44 +60,44 @@ export default {
       formText: null,
       selectToTrade: null,
       selectToRemoveTrade: null
-    }
+    };
   },
   methods: {
     async fetchUserBooks () {
       try {
-        let data = await api.getBooksByUser()
-        this.books = data.data
+        let data = await api.getBooksByUser();
+        this.books = data.data;
       } catch (err) {
-        console.error(err)
+        console.error(err);
       }
     },
     async fetchNumberPendingTrades () {
       try {
-        const count = await api.getNumberPendingTrades()
-        this.pendingTrades = count.data
+        const count = await api.getNumberPendingTrades();
+        this.pendingTrades = count.data;
       } catch (err) {
-        console.error(err)
+        console.error(err);
       }
     },
     async fetchNumberRequestedTrades () {
       try {
-        const count = await api.getNumberRequestedTrades()
-        this.requestedTrades = count.data
+        const count = await api.getNumberRequestedTrades();
+        this.requestedTrades = count.data;
       } catch (err) {
-        console.error(err)
+        console.error(err);
       }
     }
   },
   created: async function () {
-    await this.fetchUserBooks()
-    await this.fetchNumberPendingTrades()
-    await this.fetchNumberRequestedTrades()
+    await this.fetchUserBooks();
+    await this.fetchNumberPendingTrades();
+    await this.fetchNumberRequestedTrades();
   },
   watch: {
     '$route': ['fetchUserBooks', 'fetchNumberPendingTrades', 'fetchNumberRequestedTrades']
   }
 
-}
+};
 </script>
 
 <style scoped>

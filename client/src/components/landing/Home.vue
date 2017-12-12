@@ -15,11 +15,11 @@
   </div>
 </template>
 <script>
-import jumbotron from '@/components/landing/Jumbotron'
+import jumbotron from '@/components/landing/Jumbotron';
 export default {
   name: 'home',
   components: {jumbotron}
-}
+};
 </script>
 <style scoped>
 .feature {

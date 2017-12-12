@@ -37,10 +37,10 @@
   </div>
 </template>
 <script>
-import ApiService from '../../api'
-import BookTradeModal from './BookTradeModal.vue'
+import ApiService from '../../api';
+import BookTradeModal from './BookTradeModal.vue';
 
-const api = new ApiService()
+const api = new ApiService();
 
 export default {
   name: 'bookdetail',
@@ -54,11 +54,11 @@ export default {
       book: null,
       usersBooks: null,
       selectedToTrade: null
-    }
+    };
   },
   computed: {
     userBooks () {
-      return this.usersBooks
+      return this.usersBooks;
     }
   },
   methods: {
@@ -67,28 +67,28 @@ export default {
         requestedBook: book,
         currentOwner: owner,
         bookOffered: this.selectedToTrade[0]
-      }
-      await api.submitATrade(request)
-      this.selectedToTrade = null
-      this.$router.push('/user')
+      };
+      await api.submitATrade(request);
+      this.selectedToTrade = null;
+      this.$router.push('/user');
     },
     async fetchBook () {
-      const data = await api.getBookById(this.$route.params.id)
-      this.book = data.data
+      const data = await api.getBookById(this.$route.params.id);
+      this.book = data.data;
     },
     async fetchUserBooks () {
-      const data = await api.getBooksByUser()
-      this.usersBooks = data.data
+      const data = await api.getBooksByUser();
+      this.usersBooks = data.data;
     }
   },
   created: async function () {
-    await this.fetchBook()
-    await this.fetchUserBooks()
+    await this.fetchBook();
+    await this.fetchUserBooks();
   },
   watch: {
     '$route': ['fetchBook', 'fetchUserBooks']
   }
-}
+};
 </script>
 
 <style scoped>

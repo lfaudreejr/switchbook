@@ -1,13 +1,13 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Callback from '@/components/callback/Callback'
-const Home = () => import('@/components/landing/Home')
-const User = () => import('@/components/user/User')
-const TradeRequests = () => import('@/components/user/TradeRequests')
-const BooksLibrary = () => import('@/components/library/BooksLibrary')
-const BookDetail = () => import('@/components/library/BookDetail')
+import Vue from 'vue';
+import Router from 'vue-router';
+import Callback from '@/components/callback/Callback';
+const Home = () => import('@/components/landing/Home');
+const User = () => import('@/components/user/User');
+const TradeRequests = () => import('@/components/user/TradeRequests');
+const BooksLibrary = () => import('@/components/library/BooksLibrary');
+const BookDetail = () => import('@/components/library/BookDetail');
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   mode: 'history',
@@ -44,4 +44,4 @@ export default new Router({
       redirect: '/home'
     }
   ]
-})
+});

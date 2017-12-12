@@ -23,8 +23,8 @@
   </div>
 </template>
 <script>
-import ApiService from '../../api'
-const api = new ApiService()
+import ApiService from '../../api';
+const api = new ApiService();
 
 export default {
   name: 'library',
@@ -32,18 +32,18 @@ export default {
     return {
       title: 'Library',
       books: null
-    }
+    };
   },
   methods: {
     async fetchBooks () {
-      const data = await api.getAllBooks()
-      this.books = data.data
+      const data = await api.getAllBooks();
+      this.books = data.data;
     }
   },
   created: async function () {
-    await this.fetchBooks()
+    await this.fetchBooks();
   }
-}
+};
 </script>
 
 <style scoped>

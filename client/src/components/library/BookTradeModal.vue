@@ -17,11 +17,6 @@
 <script>
 export default {
   name: 'booktrademodal',
-  // data () {
-  //   return {
-  //     selected: []
-  //   }
-  // },
   props: {
     selected: {
       default: []
@@ -29,14 +24,14 @@ export default {
   },
   computed: {
     usersBooks () {
-      const userBooks = localStorage.getItem('user_books')
-      return JSON.parse(userBooks)
+      const userBooks = localStorage.getItem('user_books');
+      return JSON.parse(userBooks);
     }
   },
   watch: {
     selected: function () {
-      console.log(this.selected)
+      console.log(this.selected);
     }
   }
-}
+};
 </script>

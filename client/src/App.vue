@@ -9,34 +9,34 @@
 </template>
 
 <script>
-import navigation from '@/components/nav/Navigation'
-import AuthService from './auth/AuthService'
+import navigation from '@/components/nav/Navigation';
+import AuthService from './auth/AuthService';
 
-const auth = new AuthService()
-const {login, logout, authenticated, authNotifier, profile} = auth
+const auth = new AuthService();
+const {login, logout, authenticated, authNotifier, profile} = auth;
 
 export default {
   name: 'app',
   components: {navigation},
   data () {
     authNotifier.on('authChange', authState => {
-      this.authenticated = authState.authenticated
-    })
+      this.authenticated = authState.authenticated;
+    });
     authNotifier.on('profileChange', profileState => {
-      this.profile = profileState.profile
-    })
+      this.profile = profileState.profile;
+    });
     return {
       name: 'SwitchBook',
       auth,
       authenticated,
       profile
-    }
+    };
   },
   methods: {
     login,
     logout
   }
-}
+};
 </script>
 
 <style>
@@ -55,22 +55,22 @@ export default {
   /* color: #fff; */
 }
 .primary-bg {
-  background-color: #673ab7;
+  background-color: #673ab7 !important;
 }
 .primary-bg-dark {
-  background-color: #320b86;
+  background-color: #320b86 !important;
 }
 .primary-bg-light {
-  background-color: #9a67ea;
+  background-color: #9a67ea !important;
 }
 .secondary-bg {
-  background-color: #69f0ae;
+  background-color: #69f0ae !important;
 }
 .secondary-bg-light {
-  background-color: #9fffe0;
+  background-color: #9fffe0 !important;
 }
 .secondary-bg-dark {
-  background-color: #2bbd7e;
+  background-color: #2bbd7e !important;
 }
 .primary-color {
   color: #673ab7 !important;
@@ -79,24 +79,24 @@ export default {
   color: #69f0ae !important;
 }
 button.primary-bg:hover {
-  background-color: #320b86;
+  background-color: #320b86 !important;
 }
 button.secondary-bg:hover {
-  background-color: #2bbd7e;
+  background-color: #2bbd7e !important;
 }
 a.dropdown-item:active {
-  background-color: #2bbd7e;
+  background-color: #2bbd7e !important;
   color: #2c3e50;
 }
 a.dropdown-item:hover {
-  background-color: #f8f9fa;
+  background-color: #f8f9fa !important;
   /* color: #fff; */
 }
 a.nav-link:hover {
   color: #673ab7 !important;
 }
 .primary-border {
-  border: 1px solid#320b86;
+  border: 1px solid#320b86 !important;
 }
 .form-control:focus {
   border-color: #673ab7 !important;

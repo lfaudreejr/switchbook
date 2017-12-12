@@ -8,7 +8,6 @@
     <b-navbar-nav>
       <b-navbar-brand class="primary-color" href='/home'>SwitchBook</b-navbar-brand>
       <b-nav-item @click="auth.login()" v-if="!authenticated">Login/Register</b-nav-item>
-      <!-- <b-nav-item @click="auth.logout()" v-if="authenticated">Logout</b-nav-item> -->
       <b-nav-item v-if="authenticated && profile">Hello, {{profile}}</b-nav-item>
     </b-navbar-nav>
 
@@ -57,8 +56,8 @@
 </template>
 
 <script>
-import ApiService from '../../api'
-const api = new ApiService()
+import ApiService from '../../api';
+const api = new ApiService();
 
 export default {
   name: 'navigation',
@@ -72,35 +71,35 @@ export default {
         title: '',
         author: ''
       }
-    }
+    };
   },
   methods: {
     async submitBook (evt) {
-      evt.preventDefault()
-      const {data} = await api.submitBook(this.addBook)
-      const el = document.querySelector('div.dropdown-menu')
-      el.classList.toggle('show')
-      this.$router.push('/books/' + data._id)
+      evt.preventDefault();
+      const {data} = await api.submitBook(this.addBook);
+      const el = document.querySelector('div.dropdown-menu');
+      el.classList.toggle('show');
+      this.$router.push('/books/' + data._id);
     },
     onSubmit (evt) {
-      evt.preventDefault()
-      alert(JSON.stringify(this.search))
+      evt.preventDefault();
+      alert(JSON.stringify(this.search));
       // TODO: add http call to endpoint find by title
     },
     onReset (evt) {
-      evt.preventDefault()
+      evt.preventDefault();
       // Reset our form values
-      this.form.title = ''
-      this.form.email = ''
-      this.form.name = ''
-      this.form.food = null
-      this.form.checked = false
+      this.form.title = '';
+      this.form.email = '';
+      this.form.name = '';
+      this.form.food = null;
+      this.form.checked = false;
       // Trick to reset/clear native browser form validation state
-      this.show = false
-      this.$nextTick(() => { this.show = true })
+      this.show = false;
+      this.$nextTick(() => { this.show = true; });
     }
   }
-}
+};
 </script>
 
 <style scoped>

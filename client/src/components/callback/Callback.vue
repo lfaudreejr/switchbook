@@ -9,8 +9,8 @@
     name: 'callback',
     props: ['auth'],
     data () {
-      this.auth.handleAuthentication()
-      return {}
+      this.auth.handleAuthentication();
+      return {};
     }
-  }
+  };
 </script>

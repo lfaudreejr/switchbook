@@ -23,7 +23,15 @@ exports.app.use(bodyParser.urlencoded({ extended: false }));
 exports.app.use(bodyParser.json());
 exports.app.use(compression());
 exports.app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+if (process.env.NODE_ENV === 'production') {
+    exports.app.use('/', express.static(path.join(__dirname, '../../client/dist/')));
+}
 exports.app.use('/api', routes_1.default);
+if (process.env.NODE_ENV === 'production') {
+    exports.app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
+    });
+}
 exports.app.use(function (req, res, next) {
     const err = new Error('404');
     next(err);

@@ -43,7 +43,6 @@
               <p class="card-text">Owned by {{request.currentOwner}}</p>
             </b-card>
 
-            <!-- <b-button class="m-2" variant='success' @click="acceptTrade(request)">Accept</b-button> -->
             <b-button class="m-2" variant='danger' @click="declineTrade(request)">Delete</b-button>
 
             <b-card title="Offered Book">
@@ -60,8 +59,8 @@
 </template>
 
 <script>
-import ApiService from '../../api'
-const api = new ApiService()
+import ApiService from '../../api';
+const api = new ApiService();
 
 export default {
   data () {
@@ -69,37 +68,37 @@ export default {
       title: 'Trades',
       offers: null,
       requests: null
-    }
+    };
   },
   methods: {
     async fetchRequests () {
       try {
-        const data = await api.getRequestedTrades()
-        this.requests = data.data
+        const data = await api.getRequestedTrades();
+        this.requests = data.data;
       } catch (err) {
-        console.error(err)
+        console.error(err);
       }
     },
     async fetchOffers () {
       try {
-        const data = await api.getPendingTrades()
-        this.offers = data.data
+        const data = await api.getPendingTrades();
+        this.offers = data.data;
       } catch (err) {
-        console.error(err)
+        console.error(err);
       }
     },
     async declineTrade (req) {
-      await api.declineATrade(req._id)
-      this.$router.push('/user')
+      await api.declineATrade(req._id);
+      this.$router.push('/user');
     },
     async acceptTrade (req) {
-      await api.acceptATrade(req)
-      this.$router.push('/user')
+      await api.acceptATrade(req);
+      this.$router.push('/user');
     }
   },
   created: async function () {
-    await this.fetchRequests()
-    await this.fetchOffers()
+    await this.fetchRequests();
+    await this.fetchOffers();
   }
-}
+};
 </script>
