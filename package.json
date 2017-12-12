@@ -12,7 +12,7 @@
     "prod:build": "NODE_ENV=production concurrently \"cd client && npm run lint -- --fix\" \"npm run prod:client\" \"npm run prod:server\"",
     "prod:client": "cd client && npm run build",
     "prod:server": "cd server && tsc",
-    "prod:start": "cd server && npm run start"
+    "prod:start": "node ./server/build/index"
   },
   "keywords": [ "books", "book", "trading" ],
   "author": "Larry B Faudree Jr",

@@ -1,7 +1,7 @@
 import auth0 from 'auth0-js';
 import EventEmitter from 'eventemitter3';
 import router from '../router';
-import { config } from '../config';
+import { config } from '../config/config';
 
 export default class AuthService {
   authenticated = this.isAuthenticated();
