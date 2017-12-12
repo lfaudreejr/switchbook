@@ -13,13 +13,11 @@ const USERS = 'users';
  * 
  */
 router.use(jwtCheck)
-// router.use(getProfile)
 
 /**
  * Add Book by User
  */
 router.post('/books', async (req, res) => {
-  // const USER = req.body.profile.nickname || req.body.profile.name;
   const USER = req.headers.profile
   try {
     const BOOK = await getBook(req.body.title, req.body.author);
@@ -51,7 +49,6 @@ router.post('/books', async (req, res) => {
  * Get Book by User (Read)
  */
 router.get('/books', async (req, res) => {
-  // const USER = req.body.profile.nickname || req.body.profile.name;
   const USER = req.headers.profile
   console.log(USER)
   try {

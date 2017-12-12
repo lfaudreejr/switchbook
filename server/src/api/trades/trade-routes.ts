@@ -10,12 +10,10 @@ const BOOKS = 'books'
  * 
  */
 router.use(jwtCheck)
-// router.use(getProfile)
 /**
  *  Get all user requested trades
  */
 router.get('/', async (req, res) => {
-  // const USER = req.body.profile.nickname || req.body.profile.name;
   const USER = req.headers.profile
   try {
     const USER_TRADES = await DB.findAll({
@@ -30,7 +28,6 @@ router.get('/', async (req, res) => {
  *  Get all user pending incoming trades
  */
 router.get('/pending', async (req, res) => {
-  // const USER = req.body.profile.nickname || req.body.profile.name;
   const USER = req.headers.profile
   try {
     const PENDING = await DB.findAll({
@@ -47,7 +44,6 @@ router.get('/pending', async (req, res) => {
  */
 router.post('/request', async (req, res) => {
   const tradeRequest = {
-    // requestor: req.body.profile.nickname || req.body.profile.name,
     requestor: req.headers.profile,
     requestedBook: req.body.requestedBook,
     currentOwner: req.body.currentOwner,
@@ -68,7 +64,6 @@ router.post('/request', async (req, res) => {
  *  Accept a trade request
  */
 router.post('/accept', async (req, res) => {
-  // const USER = req.body.profile.nickname || req.body.profile.name;
   const USER = req.headers.profile
   try {
     const {bookOffered, requestedBook, currentOwner, requestor, _id} = req.body
@@ -107,7 +102,6 @@ router.post('/accept', async (req, res) => {
  */
 router.delete('/delete/:id', async (req, res) => {
   const USER = req.headers.profile
-  // const USER = req.body.profile.nickname || req.body.profile.name;
   try {
     const ID = req.params.id
     const DELETED = await DB.remove(ID, TRADES)
@@ -121,7 +115,6 @@ router.delete('/delete/:id', async (req, res) => {
  */
 router.get('/pending/incoming', async (req, res) => {
   const USER = req.headers.profile
-  // const USER = req.body.profile.nickname || req.body.profile.name;
   try {
     const COUNT = await DB.getCount({currentOwner: USER}, TRADES)
     return res.json(COUNT)
@@ -135,7 +128,6 @@ router.get('/pending/incoming', async (req, res) => {
  */
 router.get('/pending/requested', async (req, res) => {
   const USER = req.headers.profile
-  // const USER = req.body.profile.nickname || req.body.profile.name;
   try {
     const COUNT = await DB.getCount({requestor: USER}, TRADES)
     return res.json(COUNT)
