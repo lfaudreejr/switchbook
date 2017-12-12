@@ -5,9 +5,14 @@
   "main": "index.js",
   "scripts": {
     "db": "mongod --dbpath ./database",
+    "start": "npm run prod",
     "dev:start": "NODE_ENV=development concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "dev:server": "cd server && npm run dev",
-    "dev:client": "cd client && npm run dev"
+    "dev:client": "cd client && npm run dev",
+    "prod:build": "concurrently \"npm run prod:client\" \"npm run prod:server\"",
+    "prod:client": "cd client && npm run build",
+    "prod:server": "cd server && tsc",
+    "prod": "cd server && npm run start"
   },
   "keywords": [ "books", "book", "trading" ],
   "author": "Larry B Faudree Jr",
