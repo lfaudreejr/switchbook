@@ -22,7 +22,7 @@ export const server = new http.Server(app);
 */
 const port = normalizePort(config.PORT || 3000);
 app.set('port', port);
-if (process.env.NODE_ENV !== 'production') {
+if (config.NODE_ENV !== 'production') {
   app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
@@ -38,7 +38,7 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 /**
  * Serve production assets
  */
-if (process.env.NODE_ENV === 'production') {
+if (config.NODE_ENV === 'production') {
   app.use('/', express.static(path.join(__dirname, '../../client/dist/')));
 }
 /**
@@ -46,7 +46,7 @@ if (process.env.NODE_ENV === 'production') {
  */
 app.use('/api', apiRoutes)
 
-if (process.env.NODE_ENV === 'production') {
+if (config.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
   });

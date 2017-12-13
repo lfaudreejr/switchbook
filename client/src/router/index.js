@@ -6,6 +6,7 @@ const User = () => import('@/components/user/User');
 const TradeRequests = () => import('@/components/user/TradeRequests');
 const BooksLibrary = () => import('@/components/library/BooksLibrary');
 const BookDetail = () => import('@/components/library/BookDetail');
+const BookSearch = () => import('@/components/library/BookSearch');
 
 Vue.use(Router);
 
@@ -37,6 +38,12 @@ export default new Router({
     {
       path: '/books/:id',
       component: BookDetail,
+      props: true
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: BookSearch,
       props: true
     },
     {

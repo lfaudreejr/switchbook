@@ -5,11 +5,11 @@ const config_1 = require("../config");
 const MongoClient = mongodb.MongoClient;
 let mongoUri;
 let _db;
-if (config_1.config.NODE_ENV === 'production') {
-    mongoUri = config_1.config.MONGO_PROD_URI;
+if (config_1.config.NODE_ENV !== 'production') {
+    mongoUri = config_1.config.MONGO_DEV_URI;
 }
 else {
-    mongoUri = config_1.config.MONGO_DEV_URI;
+    mongoUri = config_1.config.MONGO_PROD_URI;
 }
 function connectDB() {
     return new Promise((resolve, reject) => {

@@ -25,9 +25,23 @@ router.get('/:id', (req, res) => {
   DB.find({ _id: req.params.id}, 'books', {}).then((results) => res.json(results)).catch((err) => res.status(500).json(err))
 });
 /**
- * Get a book by title
+ * Search for a book by title
  */
-// router.get('/:title, (req, res) => {})
+router.post('/search', (req, res) => {
+  const { title, author } = req.body
+  DB.find({ $and: [ { "volumeInfo.title": { $eq: title }  }, {
+    "volumeInfo.authors": author
+  } ] }, 'books', {}).then(async (result) => {
+    if (result) {
+      return res.json(result)
+    } else {
+      const data = await getBook(title, author)
+      return res.json(data)
+    }
+  }).catch((err) => {
+    return res.status(500).json(err)
+  })
+})
 
 /**
  * Delete a book by _id (Delete)

@@ -50,7 +50,6 @@ router.post('/books', async (req, res) => {
  */
 router.get('/books', async (req, res) => {
   const USER = req.headers.profile
-  console.log(USER)
   try {
     const FOUND = await DB.findAll({owners: USER}, BOOKS);
     return res.json(FOUND);

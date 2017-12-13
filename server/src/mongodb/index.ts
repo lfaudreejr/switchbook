@@ -6,16 +6,16 @@ const MongoClient = mongodb.MongoClient;
 /**
  * Mongo State
  */
-let mongoUri: any;
+let mongoUri: string;
 let _db: mongodb.Db;
 
 /**
  * Handle mongo uri per environment
  */
-if (config.NODE_ENV === 'production') {
-  mongoUri = config.MONGO_PROD_URI;
-} else {
+if (config.NODE_ENV !== 'production') {
   mongoUri = config.MONGO_DEV_URI;
+} else {
+  mongoUri = config.MONGO_PROD_URI;
 }
 /**
  * Mongo Db connection

@@ -49,7 +49,6 @@ router.post('/books', (req, res) => __awaiter(this, void 0, void 0, function* ()
 }));
 router.get('/books', (req, res) => __awaiter(this, void 0, void 0, function* () {
     const USER = req.headers.profile;
-    console.log(USER);
     try {
         const FOUND = yield DB.findAll({ owners: USER }, BOOKS);
         return res.json(FOUND);

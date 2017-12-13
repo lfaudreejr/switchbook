@@ -4,6 +4,7 @@ const express = require("express");
 const user_routes_1 = require("./users/user-routes");
 const book_routes_1 = require("./books/book-routes");
 const trade_routes_1 = require("./trades/trade-routes");
+const googleBooks_routes_1 = require("./googleApis/googleBooks-routes");
 const router = express.Router();
 router.use(function (req, res, next) {
     console.log('%s %s %s', req.method, req.url, req.path);
@@ -12,4 +13,5 @@ router.use(function (req, res, next) {
 router.use('/books', book_routes_1.default);
 router.use('/user', user_routes_1.default);
 router.use('/trades', trade_routes_1.default);
+router.use('/googleBooks', googleBooks_routes_1.default);
 exports.default = router;

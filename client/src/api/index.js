@@ -111,4 +111,13 @@ export default class ApiService {
     });
   }
 
+  findABook (book) {
+    return axios.post('/api/books/search', book, {
+      headers: {
+        Authorization: `Bearer ${auth.getToken()}`,
+        Profile: auth.getProfile()
+      }
+    });
+  }
+
 }

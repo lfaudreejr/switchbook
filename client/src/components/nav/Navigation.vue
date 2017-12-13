@@ -14,8 +14,9 @@
     <!-- Right aligned nav items -->
     <b-navbar-nav class="ml-auto">
 
-      <b-nav-form @submit="onSubmit" @reset="onReset">
-        <b-form-input v-model="search.title" size="sm" class="mr-sm-2" type="text" placeholder="Find a Book"/>
+      <b-nav-form @submit="findBook" @reset="onReset" v-if="authenticated">
+        <b-form-input v-model="search.title" size="sm" class="mr-sm-2" type="text" placeholder="Title"/>
+        <b-form-input v-model="search.author" size="sm" class="mr-sm-2" type="text" placeholder="Author"/>
         <b-button size="sm" class="my-2 my-sm-0" type="submit">Go!</b-button>
       </b-nav-form>
 
@@ -33,13 +34,6 @@
         </b-form>
       </b-nav-item-dropdown>
       <!-- TODO: make authenticated route-->
-
-      <b-nav-item-dropdown text="Lang" right>
-        <b-dropdown-item href="#">EN</b-dropdown-item>
-        <b-dropdown-item href="#">ES</b-dropdown-item>
-        <b-dropdown-item href="#">RU</b-dropdown-item>
-        <b-dropdown-item href="#">FA</b-dropdown-item>
-      </b-nav-item-dropdown>
 
       <b-nav-item-dropdown right v-if="authenticated">
         <!-- Using button-content slot -->
@@ -65,7 +59,8 @@ export default {
   data () {
     return {
       search: {
-        title: ''
+        title: '',
+        author: ''
       },
       addBook: {
         title: '',
@@ -81,10 +76,11 @@ export default {
       el.classList.toggle('show');
       this.$router.push('/books/' + data._id);
     },
-    onSubmit (evt) {
+    async findBook (evt) {
       evt.preventDefault();
-      alert(JSON.stringify(this.search));
-      // TODO: add http call to endpoint find by title
+      this.$router.push({name: 'search', query: this.search});
+      this.search.title = '';
+      this.search.author = '';
     },
     onReset (evt) {
       evt.preventDefault();
