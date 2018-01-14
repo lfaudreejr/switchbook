@@ -9,7 +9,9 @@
     "dev": "npm run build:live",
     "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/index.ts"
   },
-  "keywords": [ "server" ],
+  "keywords": [
+    "server"
+  ],
   "author": "Larry B Faudree Jr",
   "license": "ISC",
   "devDependencies": {
