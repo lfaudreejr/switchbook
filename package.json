@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "db": "mongod --dbpath ./database",
-    "start": "node ./server/build/index",
+    "start": "NODE_ENV=production node ./server/build/index",
     "setup": "npm run setup:client && npm run setup:server",
     "setup:client": "cd client && npm install",
     "setup:server": "cd server && npm install",
@@ -16,8 +16,15 @@
     "prod:client": "cd client && npm run build",
     "prod:server": "cd server && tsc"
   },
-  "cacheDirectories": ["client/node_modules", "server/node_modules"],
-  "keywords": [ "books", "book", "trading" ],
+  "cacheDirectories": [
+    "client/node_modules",
+    "server/node_modules"
+  ],
+  "keywords": [
+    "books",
+    "book",
+    "trading"
+  ],
   "author": "Larry B Faudree Jr",
   "license": "MIT",
   "repository": {
@@ -30,5 +37,6 @@
   "homepage": "https://github.com/lfaudreejr/switchbook#readme",
   "devDependencies": {
     "concurrently": "^3.5.1"
-  }
+  },
+  "dependencies": {}
 }
