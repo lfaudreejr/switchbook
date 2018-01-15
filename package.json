@@ -16,10 +16,6 @@
     "prod:client": "cd client && npm run build",
     "prod:server": "cd server && tsc"
   },
-  "cacheDirectories": [
-    "client/node_modules",
-    "server/node_modules"
-  ],
   "keywords": [
     "books",
     "book",
