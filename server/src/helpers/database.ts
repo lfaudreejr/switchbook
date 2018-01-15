@@ -53,6 +53,15 @@ export function remove (params: string, col: string) {
     });
 }
 
+export function removeAllMatches (params: object, col: string) {
+  return DB
+    .destroyAllMatches(params, col)
+    .then((doc) => doc.result)
+    .catch((err) => {
+      throw new Error(err.stack);
+    })
+}
+
 export function getCount (param: object, col: string) {
   return DB.count(param, col)
     .then((count) => {

@@ -116,6 +116,17 @@ export function destroy (id: string, col: string) {
     });
 }
 
+export function destroyAllMatches (params: object, col: string) {
+  return connectDB()
+    .then((db) => {
+      let collection = db.collection(col);
+      return collection.remove(params)
+    })
+    .catch((err) => {
+      throw new Error(err.stack);
+    })
+}
+
 export function count (params: object, col: string) {
   return connectDB()
     .then((db) => {

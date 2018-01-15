@@ -1,2 +1,2 @@
-web: npm start
-dev: npm run dev:start
+dev: npm run dev
+web: npm run start

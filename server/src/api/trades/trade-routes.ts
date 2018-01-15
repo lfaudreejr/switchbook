@@ -68,29 +68,40 @@ router.post('/accept', async (req, res) => {
   try {
     const {bookOffered, requestedBook, currentOwner, requestor, _id} = req.body
     // Update request where user is requestor
-    DB.change(requestedBook._id, BOOKS, {
+    await DB.change(requestedBook._id, BOOKS, {
       $pull: {
         owners: currentOwner
       }
     })
-    DB.change(requestedBook._id, BOOKS, {
+    await DB.change(requestedBook._id, BOOKS, {
       $push: {
         owners: requestor
       }
     })
     // Update offered book where user is currentOwner
-    DB.change(bookOffered._id, BOOKS, {
+    await DB.change(bookOffered._id, BOOKS, {
       $pull: {
         owners: requestor
       }
     })
-    DB.change(bookOffered._id, BOOKS, {
+    await DB.change(bookOffered._id, BOOKS, {
       $push: {
         owners: currentOwner
       }
     })
-    const REMOVED = await DB.remove(_id, TRADES)
-    return res.json(REMOVED)
+    /**
+     * Remove Current Trade
+     */
+    const REMOVE_CURRENT_TRADE = await DB.remove(_id, TRADES)
+    /**
+     * Remove all trades where books currently owned are offered or requested with other users
+     */
+    await DB.removeAllMatches({requestor: requestor, bookOffered: bookOffered}, TRADES)
+    await DB.removeAllMatches({currentOwner: requestor, requestedBook: bookOffered}, TRADES)
+    await DB.removeAllMatches({currentOwner: currentOwner, requestedBook: requestedBook}, TRADES)
+    await DB.removeAllMatches({requestor: currentOwner, bookOffered: requestedBook}, TRADES)
+    
+    return res.json(REMOVE_CURRENT_TRADE)
 
   } catch (err) {
     return res.status(500).json(err)
