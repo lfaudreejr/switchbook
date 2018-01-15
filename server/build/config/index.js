@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-require('dotenv').config();
 exports.config = {
     PORT: process.env.PORT,
     NODE_ENV: process.env.NODE_ENV,

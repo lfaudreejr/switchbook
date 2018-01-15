@@ -10,17 +10,18 @@ let mongoUri: string;
 let _db: mongodb.Db;
 
 /**
- * Handle mongo uri per environment
- */
-if (config.NODE_ENV !== 'production') {
-  mongoUri = config.MONGO_DEV_URI;
-} else {
-  mongoUri = config.MONGO_PROD_URI;
-}
-/**
  * Mongo Db connection
  */
 export function connectDB (): Promise<mongodb.Db> {
+  /**
+   * Handle mongo uri per environment
+   */
+  if (config.NODE_ENV !== 'production') {
+    mongoUri = config.MONGO_DEV_URI;
+  } else {
+    mongoUri = config.MONGO_PROD_URI;
+  }
+
   return new Promise((resolve, reject) => {
     if (_db) return resolve(_db);
 
