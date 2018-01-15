@@ -56,6 +56,15 @@ function remove(params, col) {
     });
 }
 exports.remove = remove;
+function removeAllMatches(params, col) {
+    return DB
+        .destroyAllMatches(params, col)
+        .then((doc) => doc.result)
+        .catch((err) => {
+        throw new Error(err.stack);
+    });
+}
+exports.removeAllMatches = removeAllMatches;
 function getCount(param, col) {
     return DB.count(param, col)
         .then((count) => {

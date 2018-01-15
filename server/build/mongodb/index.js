@@ -113,6 +113,17 @@ function destroy(id, col) {
     });
 }
 exports.destroy = destroy;
+function destroyAllMatches(params, col) {
+    return connectDB()
+        .then((db) => {
+        let collection = db.collection(col);
+        return collection.remove(params);
+    })
+        .catch((err) => {
+        throw new Error(err.stack);
+    });
+}
+exports.destroyAllMatches = destroyAllMatches;
 function count(params, col) {
     return connectDB()
         .then((db) => {

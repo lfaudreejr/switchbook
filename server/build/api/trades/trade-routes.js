@@ -63,28 +63,32 @@ router.post('/accept', (req, res) => __awaiter(this, void 0, void 0, function* (
     const USER = req.headers.profile;
     try {
         const { bookOffered, requestedBook, currentOwner, requestor, _id } = req.body;
-        DB.change(requestedBook._id, BOOKS, {
+        yield DB.change(requestedBook._id, BOOKS, {
             $pull: {
                 owners: currentOwner
             }
         });
-        DB.change(requestedBook._id, BOOKS, {
+        yield DB.change(requestedBook._id, BOOKS, {
             $push: {
                 owners: requestor
             }
         });
-        DB.change(bookOffered._id, BOOKS, {
+        yield DB.change(bookOffered._id, BOOKS, {
             $pull: {
                 owners: requestor
             }
         });
-        DB.change(bookOffered._id, BOOKS, {
+        yield DB.change(bookOffered._id, BOOKS, {
             $push: {
                 owners: currentOwner
             }
         });
-        const REMOVED = yield DB.remove(_id, TRADES);
-        return res.json(REMOVED);
+        const REMOVE_CURRENT_TRADE = yield DB.remove(_id, TRADES);
+        yield DB.removeAllMatches({ requestor: requestor, bookOffered: bookOffered }, TRADES);
+        yield DB.removeAllMatches({ currentOwner: requestor, requestedBook: bookOffered }, TRADES);
+        yield DB.removeAllMatches({ currentOwner: currentOwner, requestedBook: requestedBook }, TRADES);
+        yield DB.removeAllMatches({ requestor: currentOwner, bookOffered: requestedBook }, TRADES);
+        return res.json(REMOVE_CURRENT_TRADE);
     }
     catch (err) {
         return res.status(500).json(err);
