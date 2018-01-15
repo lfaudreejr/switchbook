@@ -9,7 +9,7 @@
     "setup": "npm run setup:client && npm run setup:server",
     "setup:client": "cd client && npm install",
     "setup:server": "cd server && npm install",
-    "dev:start": "NODE_ENV=development concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev": "NODE_ENV=development concurrently \"npm run dev:client\" \"npm run dev:server\"",
     "dev:server": "cd server && npm run dev",
     "dev:client": "cd client && npm run dev",
     "prod:build": "NODE_ENV=production concurrently \"cd client && npm run lint -- --fix\" \"npm run prod:client\" \"npm run prod:server\"",
