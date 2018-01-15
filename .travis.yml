@@ -5,8 +5,11 @@ node_js:
 cache:
   directories:
   - node_modules
+before_script:
+  - npm run setup
 deploy:
   provider: heroku
+  skip_cleanup: true
   api_key:
     secure: knGr9Xq1q1wrtxtqDtONBrQJSyBSFp01CgKOWYozNbQ+8hl8IwMAdcZldvnlO+fNvqeo6du/JVGHDA9uKpnbM2TcVYzf2gXzyUVtXXqbn9d4Ik0DsAOZ8fVK2NCk4EP6Pe8iTsAzbC0vA+ICjpZ9sQaNyv5oTpTUFQeppbz0bmxF74loLV9r4n0ennlHyEzGpeXZDfsQKy8o1QSO4Pw4Qm8vIPat/n96UxtlFjH877EU7sAGE+OYfkJ0jriKE4YTbVY920EA5uta+LFFlXU+j0zd4x/Tu1O9+thuhLpeh2MBfD6uhqYdwrhfoFNuHDnycxylBqHhUE35k6duN2FHS2zhkhFSepRv8LJwPLFldQx90ywo9Q8YxvNdUoKUl5gkJDbWTmvH2Lwt6pIp3Y6iPQ2k9cSRwJS6sYCMFHyT7ZEB1PxsQy/e0gXwX4AJwWi6YrPIC2GNxVS3EuBTKdHkycw3iiXK+tecSoHVqjTr+xWED42OKGs9/Gkdl4hSopTgG3ruspdcoTilemYtbVlUmCDSy+OuhuAWmAl9+F8xaRCK4Z21C0zwmCVn0p8Fu54iBhTIF9gefdhWRD2flFVfw9awlkYP4Qfkp5+5F17TUN14Z5Bsu4PdEzzWD7vqH/zw1Zir2oxI3r0W6BeCL1RJrIIrs1bYMe5dC3zaen4G4lU=
   app: switchbook
